@@ -41,6 +41,11 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 map <S-j> 10j
 map <S-k> 10k
 
+" Through Paragraphs with { down and } up as opposed to default (reversed)
+nnoremap } {
+nnoremap { }
+
+
 set colorcolumn=80
 " It is possible to configure settings with this file.
 " This line sets it so that 
@@ -75,7 +80,9 @@ set t_Co=256
 set laststatus=2
 
 " Powerline fonts
-let g:airline_powerline_fonts = 1" Enable the list of buffers
+let g:airline_powerline_fonts = 1
+
+" Enable the list of buffers
 
 " Add Airline tabs/list buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -93,10 +100,10 @@ set hidden
 nmap <leader>T :enew<CR>
 
 " Move to the next buffer
-nnoremap <C-Right> :bnext<CR>
+nnoremap <silent> ] :bnext<CR>
 
 " Move to the previous buffer
-nnoremap <C-Left> :bprevious<CR>
+nnoremap <silent> [ :bprevious<CR>
 
 
 "--------------- NERDTREE CONFIG -------------------------
