@@ -26,6 +26,21 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
+" Sets vim to use OS clipboard
+set clipboard^=unnamed
+
+" Enables lines and blocks swapping with alt-j, altk
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Faster line movement with  uppercase J and K
+map <S-j> 10j
+map <S-k> 10k
+
 set colorcolumn=80
 " It is possible to configure settings with this file.
 " This line sets it so that 
@@ -38,8 +53,23 @@ set autoindent
 
 colorscheme solarized
 set background=dark
+"highlight Normal ctermbg=Black
 set t_Co=256
 
+"---------- Hardcore nav mode, not reccomended for newbs
+
+  " Disable Arrow keys in Escape mode
+" map <up> <nop>
+" map <down> <nop>
+" map <left> <nop>
+" map <right> <nop>
+
+ " Disable Arrow keys in Insert mode
+" imap <up> <nop>
+" imap <down> <nop>
+" imap <left> <nop>
+" imap <right> <nop>
+" 
 "--------------------- AIRLINE ----------------
 "Enable Vim Airline
 set laststatus=2
@@ -63,10 +93,10 @@ set hidden
 nmap <leader>T :enew<CR>
 
 " Move to the next buffer
-nmap > :bnext<CR>
+nnoremap <C-Right> :bnext<CR>
 
 " Move to the previous buffer
-nmap < :bprevious<CR>
+nnoremap <C-Left> :bprevious<CR>
 
 
 "--------------- NERDTREE CONFIG -------------------------
@@ -85,14 +115,14 @@ let NERDTreeShowHidden=1
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-"----------------- Syntastic---------------------
+"----------------- Syntastic--------------------"
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -106,3 +136,7 @@ let delimitMate_expand_cr = 1
 
 ""---------------------CtrlP----------------
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+"----------------Tag bar---------------
+nmap <C-t> :TagbarToggle<CR>
+
