@@ -42,8 +42,8 @@ map <S-j> 10j
 map <S-k> 10k
 
 " Through Paragraphs with { down and } up as opposed to default (reversed)
-nnoremap } {
 nnoremap { }
+nnoremap } {
 
 
 set colorcolumn=80
