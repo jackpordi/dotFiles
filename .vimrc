@@ -17,7 +17,7 @@ filetype plugin indent on
 set mouse=a
 
 " Enables line numbers (relative)
-set relativenumber
+" set relativenumber
 set number
 
 " Expands tabs to spaces with the tab key
@@ -133,6 +133,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+
+" C config
+let g:syntastic_c_include_dirs = [ '../include', 'include', '../../include', '../../../include', 'header', '../headers', '../../headers', '../../../headers', '../utils/include', '../../utils/include'] 
+
 " Java classpaths
 " let g:syntastic_java_checkers=['java']
 let g:syntastic_java_javac_config_file_enabled = 1
@@ -145,5 +149,5 @@ let delimitMate_expand_cr = 1
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 "----------------Tag bar---------------
-nmap <C-t> :TagbarToggle<CR>
+nmap <C-t> :TagbarToggle <CR>
 
