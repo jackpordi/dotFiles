@@ -70,8 +70,11 @@ nnoremap } {
 cmap w!! %!sudo tee > /dev/null %
 
 set t_Co=256
+color slate_arctic
 highlight ColorColumn ctermbg=0
 set colorcolumn=80
+hi LineNr ctermfg=157
+hi comment ctermfg=195
 " It is possible to configure settings with this file.
 " This line sets it so that 
 " automatically
@@ -80,7 +83,6 @@ set colorcolumn=80
 " execute the command after the colon - this sets filetype to be nasm for highlighting
 au BufRead *.asm :set ft=nasm
 
-"colorscheme solarized8_dark
 "set background=dark
 "highlight Normal ctermbg=Black
 
