@@ -11,11 +11,36 @@ syntax on
 " Filetype plugin on
 filetype plugin indent on
 
+" Map the leader key to SPACE
+" let mapleader="\<SPACE>"
+set showcmd
+
 "Enables Mouse Usage
 set mouse=a
 
 " Enables line numbers (relative)
 set relativenumber
+set number
+
+if !&scrolloff
+  set scrolloff=4       " Show next 3 lines while scrolling.
+endif
+if !&sidescrolloff
+  set sidescrolloff=5   " Show next 5 columns while side-scrolling.
+endif
+set nostartofline       " Do not jump to first character with page commands.
+
+" Relative numbering
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+
+" Toggle between normal and relative numbering.
+nnoremap <leader>r :call NumberToggle()<cr>
 
 " Expands tabs to spaces with the tab key
 set expandtab
@@ -26,7 +51,7 @@ set autoindent
 "set smartindent
 
 
-" Remember Cursor position
+" Remember Cursor position between Vim sessions
 au BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" |
         \ execute("normal `\"") |
@@ -38,6 +63,11 @@ set clipboard^=unnamed
 " Prevents formatting bullshit when pasting
 set nopaste
 
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
+
 " Enables alt-mappings to function properly
 for i in range(97,122)
   let c = nr2char(i)
@@ -45,6 +75,8 @@ for i in range(97,122)
   exec "map! \e".c." <M-".c.">"
 endfor
 
+" Highlights Current Line
+set cursorline
 
 " Enables lines and blocks swapping with alt-j, altk
 nnoremap <M-j> :m .+1<CR>==
@@ -56,7 +88,7 @@ inoremap <M-k> <Esc>:m .-2<CR>==gi
 vnoremap <M-j> :m '>+1<CR>gv=gv
 vnoremap <M-k> :m '<-2<CR>gv=gv
 " Reduces delay for escape as alt has the same sequence as escape
-set timeoutlen=10 ttimeoutlen=0
+set timeoutlen=80 ttimeoutlen=0
 
 " Faster line movement with  uppercase J and K
 map <S-j> 10j
@@ -73,14 +105,8 @@ set t_Co=256
 color slate_arctic
 highlight ColorColumn ctermbg=0
 set colorcolumn=80
-hi LineNr ctermfg=157
-hi comment ctermfg=195
-" It is possible to configure settings with this file.
-" This line sets it so that 
-" automatically
-" when the buffer is read into (when a file is loaded)
-" when the filename matches any asm file
-" execute the command after the colon - this sets filetype to be nasm for highlighting
+hi CursorLineNr   cterm=bold ctermfg=51
+
 au BufRead *.asm :set ft=nasm
 
 "set background=dark
@@ -115,6 +141,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
