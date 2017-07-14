@@ -1,3 +1,5 @@
+set shell=/bin/bash
+
 if !has('nvim')
   set ttymouse=xterm2
 endif
@@ -191,7 +193,9 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
+
+" let g:syntastic_debug = 3
 
 
 " C config
@@ -208,9 +212,9 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 "-----------------Tmux Integration-----------
 let g:tmux_navigator_no_mappings = 1
-"
-"nnoremap <silent> <M-Left> :TmuxNavigateLeft<cr>
-"nnoremap <silent> <M-Down> :TmuxNavigateDown<cr>
-"nnoremap <silent> <M-Up>   :TmuxNavigateUp<cr>
-"nnoremap <silent> <M-Right> :TmuxNavigateRight<cr>
+
+nnoremap <silent> <C-Left> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-Down> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-Up> :TmuxNavigateUp<CR>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 ""nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>

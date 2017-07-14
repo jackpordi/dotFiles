@@ -1,3 +1,6 @@
+set shell=/usr/bin/fish
+
+
 " enable Pathogen plugin manager
 execute pathogen#infect()
 
