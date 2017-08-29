@@ -100,6 +100,12 @@ map <S-k> 10k
 nnoremap { }
 nnoremap } {
 
+" Navigate visually with wrapped line
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
+
 " Editing a protected file as 'sudo'
 cmap w!! %!sudo tee > /dev/null %
 
@@ -189,6 +195,9 @@ nnoremap <silent> [ :bprevious<CR>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+nnoremap <M-s> :SyntasticToggleMode<CR>
+nnoremap <M-S> :SyntasticCheck<CR>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
