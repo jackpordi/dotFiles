@@ -2,7 +2,7 @@
 test $TERM != "screen"; and exec tmux
 
 export TERM=xterm-256color
-
+thefuck --alias | source 
 neofetch
 
 #set -g theme_color_scheme solarized-light
