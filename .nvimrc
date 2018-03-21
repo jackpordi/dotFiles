@@ -140,6 +140,8 @@ au BufRead *.asm :set ft=nasm
 
 "----------PLUGINS----------------------------------
 
+runtime macros/matchit.vim
+
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -150,11 +152,18 @@ Plug 'scrooloose/syntastic'
 Plug 'ervandew/supertab'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'khzaw/vim-conceal'
+Plug 'itchyny/vim-haskell-indent'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'Raimondi/delimitMate'
+Plug 'alvan/vim-closetag'
+Plug 'ap/vim-css-color'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -236,3 +245,4 @@ nnoremap <silent> <C-Down> :TmuxNavigateDown<CR>
 nnoremap <silent> <C-Up> :TmuxNavigateUp<CR>
 nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 ""nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
