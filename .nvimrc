@@ -24,6 +24,7 @@ set mouse=a
 set relativenumber
 set number
 
+
 if !&scrolloff
   set scrolloff=4       " Show next 3 lines while scrolling.
 endif
@@ -106,6 +107,9 @@ noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 
+" Sets wrap to be consistent with indentation
+set breakindent
+
 " Editing a protected file as 'sudo'
 cmap w!! %!sudo tee > /dev/null %
 
@@ -150,6 +154,7 @@ Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'khzaw/vim-conceal'
 
 call plug#end()
 
@@ -214,6 +219,10 @@ let g:syntastic_c_include_dirs = [ '../include', 'include', '../../include', '..
 let g:syntastic_java_checkers=['java']
 let g:syntastic_java_javac_config_file_enabled = 1
 
+
+let g:syntastic_python_checker_args = '--ignore=E225'
+
+let g:syntastic_quiet_messages = { "type": "style" }
 
 "----------------Indent Guides-------------
 
