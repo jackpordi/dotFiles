@@ -1,5 +1,6 @@
 set shell=/bin/bash
 
+
 if !has('nvim')
   set ttymouse=xterm2
 endif
@@ -60,7 +61,7 @@ au BufReadPost *
     \ endif
 
 " Sets vim to use OS clipboard
-set clipboard^=unnamed
+set clipboard+=unnamedplus
 
 " Prevents formatting bullshit when pasting
 set nopaste
@@ -89,6 +90,10 @@ inoremap <M-j> <Esc>:m .+1<CR>==gi
 inoremap <M-k> <Esc>:m .-2<CR>==gi
 vnoremap <M-j> :m '>+1<CR>gv=gv
 vnoremap <M-k> :m '<-2<CR>gv=gv
+
+" Go to end of line
+inoremap <C-e> <C-o>$
+
 " Reduces delay for escape as alt has the same sequence as escape
 set timeoutlen=80 ttimeoutlen=0
 
@@ -143,8 +148,8 @@ runtime macros/matchit.vim
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+Plug 'flazz/vim-colorschemes'
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/syntastic'
 Plug 'ervandew/supertab'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -159,6 +164,11 @@ Plug 'Raimondi/delimitMate'
 Plug 'alvan/vim-closetag'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-startify'
+Plug 'pangloss/vim-javascript'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'w0rp/ale'
+Plug 'airblade/vim-gitgutter'
+Plug 'elzr/vim-json'
 
 call plug#end()
 
@@ -170,7 +180,6 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 let g:ctrlp_show_hidden = 1
-
 
 "--------------------Airline Status Bar-------------
 set laststatus=2
@@ -199,30 +208,45 @@ nnoremap <silent> ] :bnext<CR>
 " Move to the previous buffer
 nnoremap <silent> [ :bprevious<CR>
 
-"-------------Syntastic------------------------------
+"----------------ALE Linting---------------
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"-------------------GitGutter-----------------------
+noremap <M-g> :GitGutterToggle <cr>
+let g:gitgutter_enabled = 0
 
-nnoremap <M-s> :SyntasticToggleMode<CR>
-nnoremap <M-S> :SyntasticCheck<CR>
+"----------------JSON Highlighting----------------
+let g:vim_json_syntax_conceal = 0
+"----------------Autocomplete Engine--------------
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+" Plug 'ncm2/ncm2'
+" " ncm2 requires nvim-yarp
+" Plug 'roxma/nvim-yarp'
+" 
+" " enable ncm2 for all buffer
+" " autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" 
+" " note that must keep noinsert in completeopt, the others is optional
+" set completeopt=noinsert,menuone,noselect
 
-" let g:syntastic_debug = 3
-
-
-" C config
-let g:syntastic_c_include_dirs = [ '../include', 'include', '../../include', '../../../include', 'header', '../headers', '../../headers',  '../../../headers', '../utils/include', '../../utils/include']
-
-" Java classpaths
-let g:syntastic_java_checkers=['java']
-let g:syntastic_java_javac_config_file_enabled = 1
-
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+" let g:deoplete#enable_at_startup = 1
+" if !exists('g:deoplete#omni#input_patterns')
+"   let g:deoplete#omni#input_patterns = {}
+" endif
+" " let g:deoplete#disable_auto_complete = 1
+" let g:deoplete#enable_auto_complete = 1
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" 
+" " deoplete tab-complete
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" " tern
+" autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 "----------------Indent Guides-------------
 
@@ -237,3 +261,6 @@ nnoremap <silent> <C-Up> :TmuxNavigateUp<CR>
 nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 ""nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
+"-----------------Delimitmate and Closetag working together-----"
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
+au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"

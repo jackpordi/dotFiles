@@ -9,7 +9,7 @@ if version > 580
  syntax reset
  endif
 endif
-let colors_name = "slate"
+let colors_name = "slate_arctic"
 :hi Normal guifg=White guibg=grey15
 :hi Cursor guibg=khaki guifg=slategrey
 :hi VertSplit guibg=#c2bfa5 guifg=grey40 gui=none cterm=reverse

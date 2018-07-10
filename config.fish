@@ -2,16 +2,9 @@
 test $TERM != "screen"; and exec tmux
 
 export TERM=xterm-256color
-thefuck --alias | source 
-neofetch
-
-#set -g theme_color_scheme solarized-light
-
+#thefuck --alias | source 
 set fish_function_path $fish_function_path "/usr/lib/python3.6/site-packages/powerline/bindings/fish"
 powerline-setup
 
-
-
-#sl
-
+neofetch
 
