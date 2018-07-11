@@ -94,6 +94,15 @@ vnoremap <M-k> :m '<-2<CR>gv=gv
 
 " Go to end of line
 inoremap <C-e> <C-o>$
+" Same as above, for Macs
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+
+inoremap ∆ <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
+
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Reduces delay for escape as alt has the same sequence as escape
 set timeoutlen=80 ttimeoutlen=0
@@ -118,6 +127,14 @@ set breakindent
 " Editing a protected file as 'sudo'
 cmap w!! %!sudo tee > /dev/null %
 
+
+" Auto refresh when file changes (e.g. due to Git pull)
+set autoread
+" Trigger when cursor stops moving
+au CursorHold, CursorHoldI * checktime
+au FocusGained, BufEnter * :checktime
+
+" Colors and making it pretty
 set t_Co=256
 color slate_arctic
 highlight ColorColumn ctermbg=0
@@ -174,6 +191,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'w0rp/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 call plug#end()
 
