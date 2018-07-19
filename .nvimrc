@@ -83,14 +83,12 @@ endfor
 set cursorline
 
 " Enables lines and blocks swapping with alt-j, altk
-nnoremap <M-j> :m .+1<CR>==
-nnoremap <M-k> :m .-2<CR>==
-nnoremap <M-J> :m .+10<CR>==
-nnoremap <M-K> :m .-11<CR>==
-inoremap <M-j> <Esc>:m .+1<CR>==gi
-inoremap <M-k> <Esc>:m .-2<CR>==gi
-vnoremap <M-j> :m '>+1<CR>gv=gv
-vnoremap <M-k> :m '<-2<CR>gv=gv
+nnoremap <M-J> :m .+1<CR>==
+nnoremap <M-K> :m .-2<CR>==
+inoremap <M-J> <Esc>:m .+1<CR>==gi
+inoremap <M-K> <Esc>:m .-2<CR>==gi
+vnoremap <M-J> :m '>+1<CR>gv=gv
+vnoremap <M-K> :m '<-2<CR>gv=gv
 
 " Go to end of line
 inoremap <C-e> <C-o>$
@@ -105,7 +103,7 @@ vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Reduces delay for escape as alt has the same sequence as escape
-set timeoutlen=150 ttimeoutlen=0
+" set timeoutlen=150 ttimeoutlen=0
 
 " Faster line movement with  uppercase J and K
 map <S-j> 10j
