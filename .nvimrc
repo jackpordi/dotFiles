@@ -115,6 +115,9 @@ map <S-k> 10k
 nnoremap { }
 nnoremap } {
 
+" Use Esc as Esc in :terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 " Navigate visually with wrapped line
 noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
