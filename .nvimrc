@@ -15,7 +15,7 @@ syntax on
 filetype plugin indent on
 
 " Map the leader key to SPACE
-" let mapleader="\<SPACE>"
+let mapleader="'"
 set showcmd
 
 "Enables Mouse Usage
@@ -105,7 +105,7 @@ vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Reduces delay for escape as alt has the same sequence as escape
-set timeoutlen=80 ttimeoutlen=0
+set timeoutlen=150 ttimeoutlen=0
 
 " Faster line movement with  uppercase J and K
 map <S-j> 10j
@@ -121,6 +121,9 @@ noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 
+" Move across wrapped lines like regular lines
+noremap 0 ^ " Go to the first non-blank character of a line
+noremap ^ 0 " Just in case you need to go to the very beginning of a line
 " Sets wrap to be consistent with indentation
 set breakindent
 
@@ -171,10 +174,11 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'kien/ctrlp.vim'
-Plug 'ervandew/supertab'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
@@ -192,6 +196,16 @@ Plug 'w0rp/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tell-k/vim-autopep8'
+Plug 'majutsushi/tagbar'
+Plug 'davidhalter/jedi-vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'elzr/vim-json'
+Plug 'ervandew/supertab'
+Plug 'scrooloose/nerdtree'
+Plug 'bradford-smith94/quick-scope'
+Plug 'tpope/vim-eunuch'
+
 
 call plug#end()
 
@@ -226,16 +240,16 @@ set hidden
 nmap <leader>T :enew<CR>
 
 " Move to the next buffer
-nnoremap <silent> ] :bnext<CR>
+nnoremap <silent> } :bnext<CR>
 
 " Move to the previous buffer
-nnoremap <silent> [ :bprevious<CR>
+nnoremap <silent> { :bprevious<CR>
 
 "----------------ALE Linting---------------
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_lint_on_insert_leave = 1
 
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
@@ -291,3 +305,18 @@ nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 "-----------------Delimitmate and Closetag working together-----"
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
 au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
+
+"-----------------SuperTab--------------------------------------"
+set completeopt+=longest
+set completeopt-=preview
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabCrMapping=1
+
+"-----------------Jedi (Python)---------------------------------"
+let g:jedi#documentation_command = "<C-d>"
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 2
+
+"-----------------NERDTree---------------------------------------"
+map <Leader>t :NERDTreeToggle<CR>
