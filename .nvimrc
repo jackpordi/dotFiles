@@ -204,8 +204,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'elzr/vim-json'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
-Plug 'bradford-smith94/quick-scope'
+"Plug 'bradford-smith94/quick-scope'
 Plug 'tpope/vim-eunuch'
+Plug 'justinmk/vim-sneak'
 
 
 call plug#end()
@@ -247,11 +248,11 @@ nnoremap <silent> } :bnext<CR>
 nnoremap <silent> { :bprevious<CR>
 
 "----------------ALE Linting---------------
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " let g:ale_lint_on_text_changed = 'normal'
 " let g:ale_lint_on_insert_leave = 1
-
+let g:ale_linters = {'javascript': ['eslint']}
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
 let g:gitgutter_enabled = 0
@@ -310,7 +311,7 @@ au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],
 "-----------------SuperTab--------------------------------------"
 set completeopt+=longest
 set completeopt-=preview
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabCrMapping=1
 
@@ -321,3 +322,5 @@ let g:jedi#show_call_signatures = 2
 
 "-----------------NERDTree---------------------------------------"
 map <Leader>t :NERDTreeToggle<CR>
+
+"-----------------Sneak------------------------------------------
