@@ -182,7 +182,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'khzaw/vim-conceal'
 Plug 'itchyny/vim-haskell-indent'
@@ -248,11 +247,12 @@ nnoremap <silent> } :bnext<CR>
 nnoremap <silent> { :bprevious<CR>
 
 "----------------ALE Linting---------------
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " let g:ale_lint_on_text_changed = 'normal'
 " let g:ale_lint_on_insert_leave = 1
-let g:ale_linters = {'javascript': ['eslint']}
+" let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_javascript_eslint_use_global = 1
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
 let g:gitgutter_enabled = 0
