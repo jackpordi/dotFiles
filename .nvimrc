@@ -14,8 +14,8 @@ syntax on
 " Filetype plugin on
 filetype plugin indent on
 
-" Map the leader key to SPACE
-let mapleader="'"
+" Map the leader key to backslash
+let mapleader="\\"
 set showcmd
 
 "Enables Mouse Usage
@@ -24,7 +24,6 @@ set mouse=a
 " Enables line numbers (relative)
 set relativenumber
 set number
-
 
 if !&scrolloff
   set scrolloff=4       " Show next 3 lines while scrolling.
@@ -117,16 +116,27 @@ nnoremap } {
 tnoremap <Esc> <C-\><C-n>
 
 " Navigate visually with wrapped line
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
+" noremap  <buffer> <silent> k gk
+" noremap  <buffer> <silent> j gj
+" noremap  <buffer> <silent> 0 g0
+" noremap  <buffer> <silent> $ g$
+
+" Going to a mark with ' by default goes to same column too
+nnoremap ' `
 
 " Move across wrapped lines like regular lines
-noremap 0 ^ " Go to the first non-blank character of a line
-noremap ^ 0 " Just in case you need to go to the very beginning of a line
+noremap 0 ^
+noremap ^ 0
+
+" Toggle folds with space
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
 " Sets wrap to be consistent with indentation
 set breakindent
+
+" Sets no persistent search highlight
+set nohlsearch
 
 " Editing a protected file as 'sudo'
 cmap w!! %!sudo tee > /dev/null %
@@ -164,6 +174,12 @@ au BufRead *.asm :set ft=nasm
 " imap <left> <nop>
 " imap <right> <nop>
 
+" Disable hjkl navigation to force learning other motions
+" noremap h <NOP>
+" noremap j <NOP>
+" noremap k <NOP>
+" noremap l <NOP>
+
 "----------PLUGINS----------------------------------
 
 runtime macros/matchit.vim
@@ -198,26 +214,27 @@ Plug 'elzr/vim-json'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tell-k/vim-autopep8'
 Plug 'majutsushi/tagbar'
-Plug 'davidhalter/jedi-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'elzr/vim-json'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
 "Plug 'bradford-smith94/quick-scope'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
-
+Plug 'yuttie/comfortable-motion.vim'
+Plug 't9md/vim-choosewin'
+"      Deoplete and language libraries
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/vimshell.vim'
+Plug 'Shougo/vimshell.vim'
+Plug 'zchee/deoplete-jedi'
+Plug 'mhartington/nvim-typescript'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'ponko2/deoplete-fish'
 
 call plug#end()
-
-"-------------------CtrlP-----------------------
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
-
-let g:ctrlp_show_hidden = 1
 
 "--------------------Airline Status Bar-------------
 set laststatus=2
@@ -260,67 +277,77 @@ let g:gitgutter_enabled = 0
 "----------------JSON Highlighting----------------
 let g:vim_json_syntax_conceal = 0
 "----------------Autocomplete Engine--------------
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#sources#jedi#server_timeout = 300
+let g:deoplete#sources#jedi#enable_cache = 1
 
-" Plug 'ncm2/ncm2'
-" " ncm2 requires nvim-yarp
-" Plug 'roxma/nvim-yarp'
-" 
-" " enable ncm2 for all buffer
-" " autocmd BufEnter * call ncm2#enable_for_buffer()
-" autocmd BufEnter * call ncm2#enable_for_buffer()
-" 
-" " note that must keep noinsert in completeopt, the others is optional
-" set completeopt=noinsert,menuone,noselect
+call deoplete#custom#source('omni',          'mark', '⌾')
+call deoplete#custom#source('jedi',          'mark', '')
+call deoplete#custom#source('vim',           'mark', '')
+call deoplete#custom#source('neosnippet',    'mark', '')
+call deoplete#custom#source('tag',           'mark', '')
+call deoplete#custom#source('around',        'mark', '↻')
+call deoplete#custom#source('buffer',        'mark', '')
+call deoplete#custom#source('tmux-complete', 'mark', '')
+call deoplete#custom#source('syntax',        'mark', '')
+call deoplete#custom#source('member',        'mark', '.')
 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-" let g:deoplete#enable_at_startup = 1
-" if !exists('g:deoplete#omni#input_patterns')
-"   let g:deoplete#omni#input_patterns = {}
-" endif
-" " let g:deoplete#disable_auto_complete = 1
-" let g:deoplete#enable_auto_complete = 1
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" 
-" " deoplete tab-complete
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" " tern
-" autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+call deoplete#custom#source('jedi', 'matchers', ['matcher_full_fuzzy'])
 
-let g:syntastic_python_checker_args = '--ignore=E225'
+" Use auto delimiter feature
+call deoplete#custom#source('_', 'converters',
+  \ ['converter_auto_delimiter', 'remove_overlap'])
 
-let g:syntastic_quiet_messages = { "type": "style" }
+let g:deoplete#sources#jedi#short_types = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+set completeopt-=preview
 
 "----------------Indent Guides-------------
-
 let g:indent_guides_enable_on_vim_startup = 1
-
 "-----------------Tmux Integration-----------
 let g:tmux_navigator_no_mappings = 1
-
 nnoremap <silent> <C-Left> :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-Down> :TmuxNavigateDown<CR>
 nnoremap <silent> <C-Up> :TmuxNavigateUp<CR>
 nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 ""nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
-
 "-----------------Delimitmate and Closetag working together-----"
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
 au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
-
-"-----------------SuperTab--------------------------------------"
-set completeopt+=longest
-set completeopt-=preview
-" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabCrMapping=1
-
 "-----------------Jedi (Python)---------------------------------"
 let g:jedi#documentation_command = "<C-d>"
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 2
 
 "-----------------NERDTree---------------------------------------"
-map <Leader>t :NERDTreeToggle<CR>
+map <Leader>f :NERDTreeToggle<CR>
 
-"-----------------Sneak------------------------------------------
+"----------------Tagbar------------------------------------------
+"SAME WIDTH WHEN ZOOMED AS ZOOMED OUT
+let g:tagbar_zoomwidth = 0
+let g:tagbar_compact = 1
+"ABSOLUTE LINE NUMBERS
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_show_visibility = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autopreview = 0
+"AUTOMATICALLY SHOWS CURRENT TAG (EXPANDS BRANCH AS NEEDED)
+let g:tagbar_autoshowtag = 1
+nnoremap <silent><Leader>t :TagbarToggle<CR>
+"-----------------ChooseWin---------------------------------------
+let g:choosewin_overlay_enable = 1
+nnoremap <silent><Leader>c <Plug>(choosewin)
+
+"------------------Smooth Scrolling--------------------------
+let g:comfortable_motion_scroll_down_key = "j"
+let g:comfortable_motion_scroll_up_key = "k"
+
+"-------------------CtrlP-----------------------
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+let g:ctrlp_show_hidden = 1
+nnoremap <silent><Leader>p :CtrlPTag<CR>
