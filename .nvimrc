@@ -108,6 +108,9 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 map <S-j> 10j
 map <S-k> 10k
 
+" Prevent pasting/replacing a visual selection to yank that
+xnoremap p pgvy
+
 " Through Paragraphs with { down and } up as opposed to default (reversed)
 nnoremap { }
 nnoremap } {
@@ -195,7 +198,6 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'terryma/vim-multiple-cursors'
@@ -212,13 +214,13 @@ Plug 'w0rp/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tell-k/vim-autopep8'
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 Plug 'elzr/vim-json'
-" Plug 'ervandew/supertab'
+Plug 'heavenshell/vim-pydocstring'
+Plug 'tell-k/vim-autopep8'
+Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-"Plug 'bradford-smith94/quick-scope'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'yuttie/comfortable-motion.vim'
@@ -228,11 +230,11 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/vimshell.vim'
-Plug 'Shougo/vimshell.vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'mhartington/nvim-typescript'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'ponko2/deoplete-fish'
+
 
 call plug#end()
 
@@ -263,12 +265,27 @@ nnoremap <silent> } :bnext<CR>
 " Move to the previous buffer
 nnoremap <silent> { :bprevious<CR>
 
-"----------------ALE Linting---------------
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_linters = {'javascript': ['eslint']}
+" ----------------ALE Linting---------------
+ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+ nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+let g:ale_fixers = {
+      \   'javascript': [
+      \       'eslint',
+      \       'prettier',
+      \       'standard'
+      \   ],
+      \   'python': [
+      \       'autopep8'
+      \   ],
+      \   '*' : [
+      \       'remove_trailing_lines',
+      \       'trim_whitespace'
+      \   ]
+      \}
+
+let g:ale_fix_on_save = 1
+
 let g:ale_javascript_eslint_use_global = 1
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
@@ -300,9 +317,10 @@ call deoplete#custom#source('_', 'converters',
   \ ['converter_auto_delimiter', 'remove_overlap'])
 
 let g:deoplete#sources#jedi#short_types = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 set completeopt-=preview
-
+set omnifunc=syntaxcomplete#Complete
+inoremap <expr> <Tab> pumvisible() ? "\<down>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<up>" : "\<S-Tab>"
 "----------------Indent Guides-------------
 let g:indent_guides_enable_on_vim_startup = 1
 "-----------------Tmux Integration-----------
@@ -340,10 +358,6 @@ nnoremap <silent><Leader>t :TagbarToggle<CR>
 let g:choosewin_overlay_enable = 1
 nnoremap <silent><Leader>c <Plug>(choosewin)
 
-"------------------Smooth Scrolling--------------------------
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
-
 "-------------------CtrlP-----------------------
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -351,3 +365,6 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_show_hidden = 1
 nnoremap <silent><Leader>p :CtrlPTag<CR>
+
+"-----------------PyDoCString-------------------
+nmap <silent> <C-i> <Plug>(pydocstring)
