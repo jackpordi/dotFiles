@@ -1,6 +1,5 @@
 set shell=/bin/bash
 
-
 if !has('nvim')
   set ttymouse=xterm2
 endif
@@ -105,8 +104,8 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 " set timeoutlen=150 ttimeoutlen=0
 
 " Faster line movement with  uppercase J and K
-map <S-j> 10j
-map <S-k> 10k
+map <S-j> 8j
+map <S-k> 8k
 
 " Prevent pasting/replacing a visual selection to yank that
 xnoremap p pgvy
@@ -166,16 +165,16 @@ au BufRead *.asm :set ft=nasm
 "---------- Hardcore nav mode, not reccomended for newbs
 
 " Disable Arrow keys in Escape mode
-" map <up> <nop>
-" map <down> <nop>
-" map <left> <nop>
-" map <right> <nop>
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
 
 " Disable Arrow keys in Insert mode
-" imap <up> <nop>
-" imap <down> <nop>
-" imap <left> <nop>
-" imap <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
 
 " Disable hjkl navigation to force learning other motions
 " noremap h <NOP>
@@ -232,9 +231,16 @@ Plug 'Shougo/neco-syntax'
 Plug 'Shougo/vimshell.vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'mhartington/nvim-typescript'
-Plug 'carlitux/deoplete-ternjs'
 Plug 'ponko2/deoplete-fish'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
+"     Fuzzy Finder
+Plug '/usr/bin/fzf'
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -285,8 +291,8 @@ let g:ale_fixers = {
       \}
 
 let g:ale_fix_on_save = 1
-
 let g:ale_javascript_eslint_use_global = 1
+nnoremap <silent><M-a> :ALEToggle<CR>
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
 let g:gitgutter_enabled = 0
@@ -298,6 +304,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
 let g:deoplete#sources#jedi#server_timeout = 300
 let g:deoplete#sources#jedi#enable_cache = 1
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['buffer', 'tag']
 
 call deoplete#custom#source('omni',          'mark', '⌾')
 call deoplete#custom#source('jedi',          'mark', '')
@@ -309,6 +317,22 @@ call deoplete#custom#source('buffer',        'mark', '')
 call deoplete#custom#source('tmux-complete', 'mark', '')
 call deoplete#custom#source('syntax',        'mark', '')
 call deoplete#custom#source('member',        'mark', '.')
+
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+
+let g:deoplete#sources['javascript.jsx'] =
+      \['file',
+      \'ultisnips',
+      \'ternjs',
+      \ 'tag',
+      \ 'buffer'
+      \]
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
 
 call deoplete#custom#source('jedi', 'matchers', ['matcher_full_fuzzy'])
 
@@ -368,3 +392,13 @@ nnoremap <silent><Leader>p :CtrlPTag<CR>
 
 "-----------------PyDoCString-------------------
 nmap <silent> <C-i> <Plug>(pydocstring)
+
+"-----------------EasyTags
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
+
+"-------------------Snippet expands
+let g:UltiSnipsExpandTrigger="<C-j>"
