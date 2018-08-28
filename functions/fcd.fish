@@ -1,3 +1,6 @@
-function fcd --description 'Find a directory using fzf and cd int it'
-  cd (find . -type d -name "*" | command fzf)
+function fcd --description 'Find a directory using fzf and cd into it'
+  set res (find . -type d -name "*" | command fzf)
+  if test -n "$res"
+    cd $res
+  end
 end
