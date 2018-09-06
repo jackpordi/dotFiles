@@ -5,13 +5,13 @@
       "sourceType": "module",
       "ecmaFeatures": {
         "jsx": true
-      }
-    },
-    "require-jsdoc": [2, {
-      "require": {
-        "FunctionDeclaration": false,
-        "MethodDefinition": false,
-        "ClassDeclaration": false
-      }
-    }]
+      },
+      "require-jsdoc": [2, {
+        "require": {
+          "FunctionDeclaration": false,
+          "MethodDefinition": false,
+          "ClassDeclaration": false
+        }
+      }]
+    }
 }

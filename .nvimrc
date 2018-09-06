@@ -49,8 +49,8 @@ set expandtab
 set smarttab
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
 set autoindent
-"set smartindent
 
 
 " Remember Cursor position between Vim sessions
@@ -65,11 +65,6 @@ set clipboard+=unnamedplus
 " Prevents formatting bullshit when pasting
 set nopaste
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endif
-
 " Enables alt-mappings to function properly
 for i in range(97,122)
   let c = nr2char(i)
@@ -80,7 +75,7 @@ endfor
 " Highlights Current Line
 set cursorline
 
-" Enables lines and blocks swapping with alt-j, altk
+" Enables lines and blocks swapping with alt-J, alt-K
 nnoremap <M-J> :m .+1<CR>==
 nnoremap <M-K> :m .-2<CR>==
 inoremap <M-J> <Esc>:m .+1<CR>==gi
@@ -143,7 +138,6 @@ set nohlsearch
 " Editing a protected file as 'sudo'
 cmap w!! %!sudo tee > /dev/null %
 
-
 " Auto refresh when file changes (e.g. due to Git pull)
 set autoread
 " Trigger when cursor stops moving
@@ -154,7 +148,7 @@ au FocusGained, BufEnter * :checktime
 set t_Co=256
 color slate_arctic
 highlight ColorColumn ctermbg=0
-set colorcolumn=80
+set colorcolumn=81
 hi CursorLineNr   cterm=bold ctermfg=51
 
 au BufRead *.asm :set ft=nasm
@@ -223,7 +217,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 't9md/vim-choosewin'
+Plug 'AndrewRadev/splitjoin.vim'
 "      Deoplete and language libraries
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-vim'
@@ -238,9 +232,7 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
-"     Fuzzy Finder
-Plug '/usr/bin/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'guns/xterm-color-table.vim'
 
 call plug#end()
 
@@ -275,14 +267,22 @@ nnoremap <silent> { :bprevious<CR>
  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
  nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+let g:ale_set_highlights = 0
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+
 let g:ale_fixers = {
       \   'javascript': [
       \       'eslint',
-      \       'prettier',
-      \       'standard'
+      \       'standard',
+      \       'remove_trailing_lines',
+      \       'trim_whitespace'
       \   ],
       \   'python': [
-      \       'autopep8'
+      \       'add_blank_lines_for_python_control_statements',
+      \       'autopep8',
+      \       'remove_trailing_lines',
+      \       'trim_whitespace'
       \   ],
       \   '*' : [
       \       'remove_trailing_lines',
@@ -304,28 +304,22 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
 let g:deoplete#sources#jedi#server_timeout = 300
 let g:deoplete#sources#jedi#enable_cache = 1
-call deoplete#custom#option('sources', {
-      \ '_': ['buffer', 'tag'],
-      \ 'javascript.jsx':
-        \['file',
-        \'ultisnips',
-        \'ternjs',
-        \ 'tag',
-        \ 'buffer'
-        \],
-      \ 'python': ['jedi', 'ultisnips', 'file', 'buffer', 'tag'],
-\})
+" call deoplete#custom#option('sources', {
+"       \ '_': ['buffer', 'tag'],
+"       \ 'javascript.jsx':
+"         \['file',
+"         \'ultisnips',
+"         \'ternjs',
+"         \ 'tag',
+"         \ 'buffer'
+"         \],
+"       \ 'python': ['jedi', 'ultisnips', 'file', 'buffer', 'tag'],
+" \})
 
 call deoplete#custom#source('omni',          'mark', '⌾')
 call deoplete#custom#source('jedi',          'mark', '')
 call deoplete#custom#source('vim',           'mark', '')
 call deoplete#custom#source('neosnippet',    'mark', '')
-call deoplete#custom#source('tag',           'mark', '')
-call deoplete#custom#source('around',        'mark', '↻')
-call deoplete#custom#source('buffer',        'mark', '')
-call deoplete#custom#source('tmux-complete', 'mark', '')
-call deoplete#custom#source('syntax',        'mark', '')
-call deoplete#custom#source('member',        'mark', '.')
 
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
@@ -365,7 +359,7 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 2
 
 "-----------------NERDTree---------------------------------------"
-map <Leader>f :NERDTreeToggle<CR>
+map <M-t> :NERDTreeToggle<CR>
 
 "----------------Tagbar------------------------------------------
 "SAME WIDTH WHEN ZOOMED AS ZOOMED OUT
