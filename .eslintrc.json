@@ -1,17 +1,20 @@
 {
-    "extends": "google",
-    "parserOptions": {
-      "ecmaVersion": 2017,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "require-jsdoc": [2, {
-        "require": {
-          "FunctionDeclaration": false,
-          "MethodDefinition": false,
-          "ClassDeclaration": false
-        }
-      }]
+  "extends": "google",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "rules": {
+    "require-jsdoc": [2, {
+      "require": {
+        "FunctionDeclaration": false,
+        "MethodDefinition": false,
+        "ClassDeclaration": false
+      }
+    }],
+    "no-multi-str": 0
+  }
 }
