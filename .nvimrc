@@ -293,6 +293,7 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_use_global = 1
 nnoremap <silent><M-a> :ALEToggle<CR>
+let g:ale_echo_msg_format = '%linter%: %s'
 "-------------------GitGutter-----------------------
 noremap <M-g> :GitGutterToggle <cr>
 let g:gitgutter_enabled = 0
