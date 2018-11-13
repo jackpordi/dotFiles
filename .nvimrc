@@ -214,6 +214,9 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'tell-k/vim-autopep8'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
+Plug 'vim-pandoc/vim-rmarkdown'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'yuttie/comfortable-motion.vim'
@@ -231,7 +234,6 @@ Plug 'honza/vim-snippets'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-
 Plug 'guns/xterm-color-table.vim'
 
 call plug#end()

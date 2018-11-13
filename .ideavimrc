@@ -1,0 +1,55 @@
+" Enables line numbers (relative)
+set relativenumber
+set number
+
+if !&scrolloff
+  set scrolloff=4       " Show next 3 lines while scrolling.
+endif
+if !&sidescrolloff
+  set sidescrolloff=5   " Show next 5 columns while side-scrolling.
+endif
+set nostartofline       " Do not jump to first character with page commands.
+
+" Relative numbering
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nornu
+  else
+    set rnu
+  endif
+endfunc
+
+" Toggle between normal and relative numbering.
+nnoremap <leader>r :call NumberToggle()<cr>
+
+" Prevents formatting bullshit when pasting
+set nopaste
+
+" Expands tabs to spaces with the tab key
+set expandtab
+set smarttab
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set autoindent
+
+" Faster line movement with  uppercase J and K
+map <S-j> 8j
+map <S-k> 8k
+
+set nohlsearch
+set colorcolumn=81
+
+"---------- Hardcore nav mode, not reccomended for newbs
+
+" Disable Arrow keys in Escape mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Disable Arrow keys in Insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
