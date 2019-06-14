@@ -221,6 +221,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'chrisbra/csv.vim'
+Plug 'lifepillar/pgsql.vim'
 "      Deoplete and language libraries
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-vim'
@@ -324,6 +326,9 @@ call deoplete#custom#source('jedi',          'mark', '')
 call deoplete#custom#source('vim',           'mark', '')
 call deoplete#custom#source('neosnippet',    'mark', '')
 
+call deoplete#custom#option('auto_complete_delay', 5)
+call deoplete#custom#option('num_processes', 6)
+
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
@@ -400,4 +405,5 @@ let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
 
 "-------------------Snippet expands
-let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsExpandTrigger="<C-l>"
+let g:UltiSnipsJumpForwardTrigger="<C-l>"
