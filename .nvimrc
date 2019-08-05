@@ -183,7 +183,7 @@ runtime macros/matchit.vim
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'kien/ctrlp.vim'
@@ -223,19 +223,15 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'lifepillar/pgsql.vim'
-"      Deoplete and language libraries
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+"      COC and language libraries
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'Shougo/neco-vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/vimshell.vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'mhartington/nvim-typescript'
-Plug 'ponko2/deoplete-fish'
-Plug 'SirVer/ultisnips'
+Plug 'neoclide/coc-neco'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'guns/xterm-color-table.vim'
 
 call plug#end()
@@ -305,44 +301,8 @@ let g:gitgutter_enabled = 0
 "----------------JSON Highlighting----------------
 let g:vim_json_syntax_conceal = 0
 "----------------Autocomplete Engine--------------
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 0
-let g:deoplete#sources#jedi#server_timeout = 300
-let g:deoplete#sources#jedi#enable_cache = 1
-" call deoplete#custom#option('sources', {
-"       \ '_': ['buffer', 'tag'],
-"       \ 'javascript.jsx':
-"         \['file',
-"         \'ultisnips',
-"         \'ternjs',
-"         \ 'tag',
-"         \ 'buffer'
-"         \],
-"       \ 'python': ['jedi', 'ultisnips', 'file', 'buffer', 'tag'],
-" \})
-
-call deoplete#custom#source('omni',          'mark', '⌾')
-call deoplete#custom#source('jedi',          'mark', '')
-call deoplete#custom#source('vim',           'mark', '')
-call deoplete#custom#source('neosnippet',    'mark', '')
-
-call deoplete#custom#option('auto_complete_delay', 5)
-call deoplete#custom#option('num_processes', 6)
-
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
-
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-
-call deoplete#custom#source('jedi', 'matchers', ['matcher_full_fuzzy'])
-
-" Use auto delimiter feature
-call deoplete#custom#source('_', 'converters',
-  \ ['converter_auto_delimiter', 'remove_overlap'])
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 let g:deoplete#sources#jedi#short_types = 1
 set completeopt-=preview
@@ -359,7 +319,7 @@ nnoremap <silent> <C-Up> :TmuxNavigateUp<CR>
 nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 ""nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 "-----------------Delimitmate and Closetag working together-----"
-let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.jsx"
 au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
 "-----------------Jedi (Python)---------------------------------"
 let g:jedi#documentation_command = "<C-d>"
@@ -368,6 +328,12 @@ let g:jedi#show_call_signatures = 2
 
 "-----------------NERDTree---------------------------------------"
 map <M-t> :NERDTreeToggle<CR>
+
+
+"-----------------AUTOCOMPLETE WITH COC--------------------------
+
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 "----------------Tagbar------------------------------------------
 "SAME WIDTH WHEN ZOOMED AS ZOOMED OUT
@@ -382,10 +348,6 @@ let g:tagbar_autopreview = 0
 "AUTOMATICALLY SHOWS CURRENT TAG (EXPANDS BRANCH AS NEEDED)
 let g:tagbar_autoshowtag = 1
 nnoremap <silent><Leader>t :TagbarToggle<CR>
-"-----------------ChooseWin---------------------------------------
-let g:choosewin_overlay_enable = 1
-nnoremap <silent><Leader>c <Plug>(choosewin)
-
 "-------------------CtrlP-----------------------
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -397,12 +359,12 @@ nnoremap <silent><Leader>p :CtrlPTag<CR>
 "-----------------PyDoCString-------------------
 nmap <silent> <C-i> <Plug>(pydocstring)
 
-"-----------------EasyTags
-let g:easytags_events = ['BufReadPost', 'BufWritePost']
-let g:easytags_async = 1
-let g:easytags_dynamic_files = 2
-let g:easytags_resolve_links = 1
-let g:easytags_suppress_ctags_warning = 1
+""-----------------EasyTags
+"let g:easytags_events = ['BufReadPost', 'BufWritePost']
+"let g:easytags_async = 1
+"let g:easytags_dynamic_files = 2
+"let g:easytags_resolve_links = 1
+"let g:easytags_suppress_ctags_warning = 1
 
 "-------------------Snippet expands
 let g:UltiSnipsExpandTrigger="<C-l>"
