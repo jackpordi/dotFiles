@@ -10,7 +10,10 @@ endif
 " Enables Syntax highlighting
 syntax on
 
-" Filetype plugin on
+" No Swap files
+set noswapfile
+
+"Filetype plugin on
 filetype plugin indent on
 
 " Map the leader key to backslash
@@ -141,6 +144,7 @@ color slate_arctic
 highlight ColorColumn ctermbg=0
 set colorcolumn=81
 hi CursorLineNr   cterm=bold ctermfg=51
+hi SignColumn ctermbg=0
 
 au BufRead *.asm :set ft=nasm
 
@@ -177,7 +181,8 @@ runtime macros/matchit.vim
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
@@ -195,11 +200,13 @@ Plug 'mhinz/vim-startify'
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'majutsushi/tagbar'
+Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
-Plug 'elzr/vim-json'
 Plug 'heavenshell/vim-pydocstring'
+Plug 'suy/vim-context-commentstring'
 Plug 'tell-k/vim-autopep8'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
@@ -207,9 +214,9 @@ Plug 'vim-pandoc/vim-rmarkdown'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
 Plug 'guns/xterm-color-table.vim'
 Plug 'justinmk/vim-sneak'
-" Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'lifepillar/pgsql.vim'
@@ -275,7 +282,7 @@ nnoremap <silent> <C-Right> :TmuxNavigateRight<CR>
 " ===============================================================
 "-----------------Delimitmate and Closetag working together-----"
 " ===============================================================
-let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.jsx"
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.jsx,*.js,*.ts,*.tsx"
 au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 
@@ -284,8 +291,18 @@ au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],
 " ===============================================================
 
 " Use Tab and Shift-Tab to navigate autocomplete choices
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
 "
 " Enter to select
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -293,19 +310,34 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Select first option if no selection
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+"
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>aw  <Plug>(coc-codeaction-selected)
+
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 "" Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
+"" Set Floating Window Background Color
+highlight CocFloating ctermbg=black
 
 " ===============================================================
-"                  CtrlP
+"                  FZF
 " ===============================================================
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
-let g:ctrlp_show_hidden = 1
-nnoremap <silent><Leader>p :CtrlPTag<CR>
 
 
 " ===============================================================
@@ -313,12 +345,23 @@ nnoremap <silent><Leader>p :CtrlPTag<CR>
 " ===============================================================
 let g:ale_linters = {}
 let g:ale_fixers = {}
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_set_baloons = 1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
+highlight clear SignColumn
+
+let g:ale_set_highlights = 0 " Disable highligting
 
 :call extend(g:ale_fixers, {'*': ['remove_trailing_lines', 'trim_whitespace']})
+
+" ================================================================
+"                           Fugitive
+" ================================================================
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
