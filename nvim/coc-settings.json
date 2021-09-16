@@ -1,7 +1,7 @@
 {
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.format.enable": true,
   "prettier.disableSuccessMessage": true,
   "tsserver.formatOnType": true,
   "javascript.suggestionActions.enabled": false,
