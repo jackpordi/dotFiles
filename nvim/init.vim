@@ -148,8 +148,9 @@ hi SignColumn ctermbg=0
 
 au BufRead *.asm :set ft=nasm
 
-"set background=dark
-"highlight Normal ctermbg=Black
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap <CR> <CR><C-g>u
 
 "---------- Hardcore nav mode, not reccomended for newbs
 
@@ -182,7 +183,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
@@ -329,8 +332,22 @@ nmap <leader>aw  <Plug>(coc-codeaction-selected)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Action menu
+nmap <leader>do  <Plug>(coc-codeaction)
+
 "" Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use K to show documentation in preview window
+nnoremap <silent> L :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 "" Set Floating Window Background Color
 highlight CocFloating ctermbg=black
@@ -339,6 +356,19 @@ highlight CocFloating ctermbg=black
 "                  FZF
 " ===============================================================
 
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-f> :Rg<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>m :Marks<CR>
+
+let $FZF_DEFAULT_OPTS = '--bind tab:down,shift-tab:up'
 
 " ===============================================================
 " Ale Config
