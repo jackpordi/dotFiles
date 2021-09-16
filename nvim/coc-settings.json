@@ -1,4 +1,12 @@
 {
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "prettier.disableSuccessMessage": true,
+  "tsserver.formatOnType": true,
+  "javascript.suggestionActions.enabled": false,
+  "coc.preferences.formatOnType": true,
+  "flutter.provider.enableSnippet": true,
   "languageserver": {
     "haskell": {
       "command": "hie-wrapper",

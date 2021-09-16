@@ -46,6 +46,8 @@ set tabstop=2
 set softtabstop=2
 set smartindent
 
+command! Filename execute ":echo expand('%:p')"
+command! Config execute ":e $MYVIMRC"
 
 " Remember Cursor position between Vim sessions
 au BufReadPost *
@@ -220,6 +222,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'lifepillar/pgsql.vim'
+Plug 'AndrewRadev/tagalong.vim'
 
 "      COC and language libraries
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
@@ -290,6 +293,20 @@ au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],
 "              AUTOCOMPLETE WITH COC
 " ===============================================================
 
+" Coc Extensions
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-flutter',
+  \ ]
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
 " Use Tab and Shift-Tab to navigate autocomplete choices
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -315,7 +332,27 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-"
+nmap <silent> gN <Plug>(coc-diagnostic-prev)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+
+nnoremap <silent> L :call CocActionAsync('doHover')<cr>
+
+" Diagnostics
+nnoremap <silent> :Diag<cr> :<C-u>CocList diagnostics<cr>
+
+function! ShowDocIfNoDiagnostic(timer_id)
+  if (coc#float#has_float() == 0)
+    silent call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:show_hover_doc()
+  call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -323,8 +360,12 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-" Remap for do codeAction of current line
-nmap <leader>aw  <Plug>(coc-codeaction-selected)
+" Code Action
+nmap <leader>do  <Plug>(coc-codeaction)
+xmap <leader>do  <Plug>(coc-codeaction-selected)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Fmt :call CocAction('format')
 
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
@@ -365,3 +406,8 @@ let g:ale_set_highlights = 0 " Disable highligting
 nnoremap <leader>gd :Gvdiff<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" ================================================================
+"                  Tagalong tag replacement
+" ================================================================
+let g:tagalong_additional_filetypes = ['tsx']

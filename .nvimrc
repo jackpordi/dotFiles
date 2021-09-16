@@ -1,1 +1,0 @@
-/home/jackpordi/dotFiles/nvim/.nvimrc
