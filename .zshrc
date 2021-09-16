@@ -67,6 +67,8 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+eval $(thefuck --alias)
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -80,6 +82,7 @@ plugins=(
 	docker
 	colorize
 	colored-man-pages
+  thefuck
 )
 
 ZSH_TMUX_AUTOSTART=true
@@ -115,6 +118,7 @@ alias :q="exit"
 alias gst="git status"
 alias gcam="git commit -am"
 alias fv="fzf | xargs nvim"
+alias vim="nvim"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
