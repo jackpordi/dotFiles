@@ -343,18 +343,18 @@ nnoremap <silent> L :call CocActionAsync('doHover')<cr>
 " Diagnostics
 nnoremap <silent> :Diag<cr> :<C-u>CocList diagnostics<cr>
 
-function! ShowDocIfNoDiagnostic(timer_id)
-  if (coc#float#has_float() == 0)
-    silent call CocActionAsync('doHover')
-  endif
-endfunction
+" function! ShowDocIfNoDiagnostic(timer_id)
+"   if (coc#float#has_float() == 0)
+"     silent call CocActionAsync('doHover')
+"   endif
+" endfunction
 
-function! s:show_hover_doc()
-  call timer_start(500, 'ShowDocIfNoDiagnostic')
-endfunction
+" function! s:show_hover_doc()
+"   call timer_start(500, 'ShowDocIfNoDiagnostic')
+" endfunction
 
-autocmd CursorHoldI * :call <SID>show_hover_doc()
-autocmd CursorHold * :call <SID>show_hover_doc()
+" autocmd CursorHoldI * :call <SID>show_hover_doc()
+" autocmd CursorHold * :call <SID>show_hover_doc()
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)

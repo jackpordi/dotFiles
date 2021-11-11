@@ -4,7 +4,7 @@
 # fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jackpordi/.oh-my-zsh"
+export ZSH="/Users/jackpordi/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -86,6 +86,7 @@ plugins=(
 )
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,6 +115,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+path+=$HOME/.flutter/bin
 alias :q="exit"
 alias gst="git status"
 alias gcam="git commit -am"
@@ -124,6 +127,6 @@ export EDITOR="$VISUAL"
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
 bindkey -s '^p' 'vim $(fzf)\n'
