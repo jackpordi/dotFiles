@@ -7,6 +7,7 @@
   "javascript.suggestionActions.enabled": false,
   "coc.preferences.formatOnType": true,
   "flutter.provider.enableSnippet": true,
+  "npm.binPath": "/Users/jackpordi/.nvm/versions/node/v16.13.0/lib/node_modules/npm/bin/npm",
   "languageserver": {
     "haskell": {
       "command": "hie-wrapper",

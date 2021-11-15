@@ -68,8 +68,6 @@ for i in range(97,122)
   exec "map! \e".c." <M-".c.">"
 endfor
 
-" Highlights Current Line
-set cursorline
 
 " Enables lines and blocks swapping with alt-J, alt-K
 nnoremap <M-J> :m .+1<CR>==
@@ -141,9 +139,8 @@ au CursorHold, CursorHoldI * checktime
 au FocusGained, BufEnter * :checktime
 
 " Colors and making it pretty
-set t_Co=256
-color slate_arctic
-highlight ColorColumn ctermbg=0
+set termguicolors
+highlight ColorColumn ctermbg=235
 set colorcolumn=81
 hi CursorLineNr   cterm=bold ctermfg=51
 hi SignColumn ctermbg=0
@@ -183,13 +180,16 @@ runtime macros/matchit.vim
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'karb94/neoscroll.nvim'
+" Plug 'bling/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'yggdroot/indentline'
@@ -227,24 +227,40 @@ Plug 'chrisbra/csv.vim'
 Plug 'lifepillar/pgsql.vim'
 Plug 'AndrewRadev/tagalong.vim'
 
+Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+Plug 'akinsho/bufferline.nvim'
+
 "      COC and language libraries
 Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
 Plug 'honza/vim-snippets'
 
 call plug#end()
 
+colorscheme dracula_bold
+" Highlights Current Line
+set cursorline
+hi CursorLine term=underline cterm=underline gui=underline guibg=NONE
+
 "--------------------Airline Status Bar-------------
 set laststatus=2
 set noshowmode
 
-let g:airline_theme='monochrome'
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+lua << EOF
+  require('lualine').setup()
+  require('neoscroll').setup({
+    easing_function = "quadratic"
+  })
+EOF
 
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+" let g:airline_theme='monochrome'
+
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" " Show just the filename
+" let g:airline#extensions#tabline#fnamemod = ':t'
 
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
@@ -273,7 +289,6 @@ let g:gitgutter_enabled = 0
 " ===============================================================
 let g:indent_guides_enable_on_vim_startup = 1
 
-
 " ===============================================================
 "-----------------Tmux Integration-----------
 " ===============================================================
@@ -295,6 +310,8 @@ au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],
 " ===============================================================
 "              AUTOCOMPLETE WITH COC
 " ===============================================================
+
+let g:coc_node_path = '/Users/jackpordi/.nvm/versions/node/v16.13.0/bin/node'
 
 " Coc Extensions
 let g:coc_global_extensions = [
@@ -441,3 +458,14 @@ nnoremap gdl :diffget //3<CR>
 "                  Tagalong tag replacement
 " ================================================================
 let g:tagalong_additional_filetypes = ['tsx']
+
+
+" ================================================================
+"                  Bufferline setup
+" ================================================================
+lua << EOF
+require("bufferline").setup {
+  show_buffer_icons = true,
+  show_buffer_close_icons = true,
+}
+EOF

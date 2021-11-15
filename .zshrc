@@ -124,9 +124,18 @@ alias fv="fzf | xargs nvim"
 alias vim="nvim"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+# Loads NVM, but quickly
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  nvm_cmds=(nvm node npm yarn)
+  for cmd in $nvm_cmds ; do
+    alias $cmd="unalias $nvm_cmds && unset nvm_cmds && . $NVM_DIR/nvm.sh && $cmd"
+  done
+fi
+
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-# source /usr/share/fzf/completion.zsh
-# source /usr/share/fzf/key-bindings.zsh
 bindkey -s '^p' 'vim $(fzf)\n'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
