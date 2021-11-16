@@ -5,9 +5,12 @@ local fn = vim.fn
 vim.cmd('packadd packer.nvim')
 local packer = require 'packer'
 local util = require'packer.util'
+
 packer.init({
   package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
 })
+
+local remap = require 'remap'
 
 packer.startup(function() 
   -- Self-manage packer
@@ -71,6 +74,7 @@ packer.startup(function()
       require("plugins/treesitter")
     end
   }
+
   -- Auto closes.
   use {
     "windwp/nvim-autopairs",
@@ -92,6 +96,14 @@ packer.startup(function()
   use {
     "kyazdani42/nvim-web-devicons",
     event = "BufEnter"
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() 
+      require 'plugins/nvim-tree'
+    end
   }
 
   use {
