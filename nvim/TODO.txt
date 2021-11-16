@@ -1,5 +1,6 @@
 TODO:
 
+- Use popup window for rename
 - Add ESLint to LSP config/format
 - Auto parantheses / brackets to function completion
 - Get snippets to actually work
