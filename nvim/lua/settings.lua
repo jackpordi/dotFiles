@@ -81,4 +81,5 @@ endif
 ]]
 
 
-vim.cmd "colorscheme dracula"
+vim.cmd "colorscheme dracula_bold"
+vim.cmd "hi CursorLine term=underline cterm=underline gui=underline guibg=NONE"
