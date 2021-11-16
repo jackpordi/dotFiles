@@ -33,13 +33,17 @@ packer.startup(function()
       "hrsh7th/cmp-nvim-lsp"
     },
     config = function()
-      -- require("plugins/cmp")
+      require("plugins/cmp")
     end
   }
+
   use {
     "L3MON4D3/LuaSnip",
     after = "nvim-cmp"
   }
+
+  use 'onsails/lspkind-nvim'
+
   use {
     "saadparwaiz1/cmp_luasnip",
     after = "LuaSnip"
