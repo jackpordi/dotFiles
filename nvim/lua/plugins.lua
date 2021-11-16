@@ -15,6 +15,47 @@ local remap = require 'remap'
 packer.startup(function() 
   -- Self-manage packer
   use {'wbthomason/packer.nvim'}
+  
+  -- LSP, LSP installer and tab completion.
+  use { 
+    "neovim/nvim-lspconfig",
+    "williamboman/nvim-lsp-installer"
+  }
+
+  use {
+     "rafamadriz/friendly-snippets",
+     event = "InsertEnter"
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    after = "friendly-snippets",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp"
+    },
+    config = function()
+      -- require("plugins/cmp")
+    end
+  }
+  use {
+    "L3MON4D3/LuaSnip",
+    after = "nvim-cmp"
+  }
+  use {
+    "saadparwaiz1/cmp_luasnip",
+    after = "LuaSnip"
+  }
+  use {
+    "hrsh7th/cmp-buffer",
+    after = "cmp_luasnip"
+  }
+  use {
+    "hrsh7th/cmp-path",
+    after = "cmp-buffer"
+  }
+  use {
+    "hrsh7th/cmp-nvim-lua",
+    after = "cmp-nvim-lsp"
+  }
 
   -- Color schemes
   use {'dracula/vim', as = 'dracula'}
@@ -146,4 +187,7 @@ packer.startup(function()
         require("plugins/telescope")
     end
   }
+
+  use "farmergreg/vim-lastplace"
+
 end)

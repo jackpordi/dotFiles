@@ -139,3 +139,4 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 bindkey -s '^p' 'vim $(fzf)\n'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
