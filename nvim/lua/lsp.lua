@@ -22,7 +22,6 @@ remap("n", "<leader>wr", ":lua vim.lsp.buf.remove_workspace_folder()<CR>", lsp_o
 remap("n", "<leader>wl", ":lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", lsp_opts)
 remap("n", "<leader>D", ":lua vim.lsp.buf.type_definition()<CR>", lsp_opts)
 remap("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", lsp_opts)
--- remap("n", "<leader>do", ":lua vim.lsp.buf.code_action()<CR>", lsp_opts)
 remap("n", "gr", ":lua vim.lsp.buf.references()<CR>", lsp_opts)
 remap("n", "<leader>e", ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", lsp_opts)
 remap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)

@@ -1,0 +1,6 @@
+TODO:
+
+- Add ESLint to LSP config/format
+- Auto parantheses / brackets to function completion
+- Get snippets to actually work
+
