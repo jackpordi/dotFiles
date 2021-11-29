@@ -141,6 +141,8 @@ packer.startup(function()
     end
   }
 
+  use 'AndrewRadev/splitjoin.vim'
+
   -- Icons.
   use {
     "kyazdani42/nvim-web-devicons",
@@ -198,4 +200,12 @@ packer.startup(function()
 
   use "farmergreg/vim-lastplace"
 
+  use 'famiu/bufdelete.nvim'
+
+  use {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("plugins/toggleterm")
+    end
+  }
 end)

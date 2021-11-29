@@ -53,6 +53,9 @@ opt.ruler = true
 opt.ttimeoutlen = 20
 opt.timeoutlen = 1000
 
+-- No swap file
+vim.cmd "set noswapfile"
+
 -- Setting up autocomplete menu.
 opt.completeopt = "menuone,noselect"
 
