@@ -22,10 +22,11 @@ packer.startup(function()
     "williamboman/nvim-lsp-installer"
   }
 
-  use {
-     "rafamadriz/friendly-snippets",
-     event = "InsertEnter"
-  }
+   use {
+      "rafamadriz/friendly-snippets",
+      event = "InsertEnter",
+   }
+
   use {
     "hrsh7th/nvim-cmp",
     after = "friendly-snippets",
@@ -39,7 +40,8 @@ packer.startup(function()
 
   use {
     "L3MON4D3/LuaSnip",
-    after = "nvim-cmp"
+    wants = "friendly-snippets",
+    after = "nvim-cmp",
   }
 
   use 'onsails/lspkind-nvim'
