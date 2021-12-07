@@ -6,6 +6,8 @@ local lspkind = require("lspkind")
 
 lspkind.init()
 
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -42,3 +44,5 @@ cmp.setup {
     { name = "nvim_lua" }
   },
 }
+
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))

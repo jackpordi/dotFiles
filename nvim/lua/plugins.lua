@@ -42,6 +42,9 @@ packer.startup(function()
     "L3MON4D3/LuaSnip",
     wants = "friendly-snippets",
     after = "nvim-cmp",
+    config = function()
+      require("luasnip/loaders/from_vscode").lazy_load()
+    end
   }
 
   use 'onsails/lspkind-nvim'
@@ -175,9 +178,9 @@ packer.startup(function()
 
   -- Commentary replacement
   use {
-    "terrortylor/nvim-comment",
+    'numToStr/Comment.nvim',
     config = function()
-        require("nvim_comment").setup()
+        require('Comment').setup()
     end
   }
 
