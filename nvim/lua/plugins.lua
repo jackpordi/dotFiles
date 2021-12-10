@@ -61,10 +61,6 @@ packer.startup(function()
     "hrsh7th/cmp-path",
     after = "cmp-buffer"
   }
-  use {
-    "hrsh7th/cmp-nvim-lua",
-    after = "cmp-nvim-lsp"
-  }
 
   -- Color schemes
   use {'dracula/vim', as = 'dracula'}
@@ -213,4 +209,7 @@ packer.startup(function()
       require("plugins/toggleterm")
     end
   }
+
+  use "sheerun/vim-polyglot"
+
 end)
