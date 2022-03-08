@@ -4,7 +4,7 @@
 # fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jackpordi/.oh-my-zsh"
+export ZSH="/Users/jackpordi/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -86,6 +86,7 @@ plugins=(
 )
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,6 +115,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+path+=$HOME/.flutter/bin
+path+=$(go env GOPATH)/bin
 alias :q="exit"
 alias gst="git status"
 alias gcam="git commit -am"
@@ -121,9 +125,36 @@ alias fv="fzf | xargs nvim"
 alias vim="nvim"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+# Loads NVM, but quickly
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  nvm_cmds=(nvm node npm yarn)
+  for cmd in $nvm_cmds ; do
+    alias $cmd="unalias $nvm_cmds && unset nvm_cmds && . $NVM_DIR/nvm.sh && $cmd"
+  done
+fi
+
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
 bindkey -s '^p' 'vim $(fzf)\n'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
