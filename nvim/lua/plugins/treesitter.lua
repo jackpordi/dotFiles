@@ -16,6 +16,12 @@ nvim_treesitter.setup {
   }
 }
 
+require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true
+  }
+}
+
 vim.cmd
 [[
 autocmd BufEnter * set foldmethod=expr

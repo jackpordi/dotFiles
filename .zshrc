@@ -117,6 +117,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 path+=$HOME/.flutter/bin
+path+=$(go env GOPATH)/bin
 alias :q="exit"
 alias gst="git status"
 alias gcam="git commit -am"
@@ -156,3 +157,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

@@ -180,6 +180,11 @@ packer.startup(function()
     end
   }
 
+  use {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    after = "nvim-treesitter"
+  }
+
   -- Pretty colors
   use {
     "norcalli/nvim-colorizer.lua",
