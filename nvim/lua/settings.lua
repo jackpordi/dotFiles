@@ -83,6 +83,6 @@ endif
 
 
 vim.cmd "hi CursorLine term=underline cterm=underline gui=underline guibg=NONE"
-vim.cmd "colo dracula"
+-- vim.cmd "colo dracula"
 
 opt.autoread = true

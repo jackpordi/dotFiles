@@ -1,7 +1,3 @@
-local vim = vim
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
 vim.cmd('packadd packer.nvim')
 local packer = require 'packer'
 local util = require'packer.util'
@@ -228,7 +224,10 @@ packer.startup(function()
   -- Color schemes
   use {
     "dracula/vim",
-    as = "dracula"
+    as = "dracula",
+    config = function() 
+      vim.cmd "colo dracula"
+    end
   }
 
 
