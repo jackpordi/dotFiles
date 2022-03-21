@@ -228,10 +228,7 @@ packer.startup(function()
   -- Color schemes
   use {
     "dracula/vim",
-    as = "dracula",
-    config = function()
-      vim.cmd "colo dracula"
-    end
+    as = "dracula"
   }
 
 
