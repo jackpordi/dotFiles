@@ -12,20 +12,31 @@ packer.init({
 
 local remap = require 'remap'
 
-packer.startup(function() 
+packer.startup(function()
   -- Self-manage packer
   use {'wbthomason/packer.nvim'}
-  
+ 
   -- LSP, LSP installer and tab completion.
-  use { 
+  use {
     "neovim/nvim-lspconfig",
     "williamboman/nvim-lsp-installer"
   }
 
-   use {
-      "rafamadriz/friendly-snippets",
-      event = "InsertEnter",
-   }
+  -- LSP enhancer
+  -- { "tami5/lspsaga.nvim" }
+  use {
+    "tami5/lspsaga.nvim",
+    event = "BufRead",
+    config = function()
+      require("plugins/lspsaga").config()
+    end,
+    -- disable = not config.enabled.lspsaga,
+  }
+
+  use {
+    "rafamadriz/friendly-snippets",
+    event = "InsertEnter",
+  }
 
   use {
     "hrsh7th/nvim-cmp",
@@ -62,12 +73,9 @@ packer.startup(function()
     after = "cmp-buffer"
   }
 
-  -- Color schemes
-  use {'dracula/vim', as = 'dracula'}
-  use {'flazz/vim-colorschemes'}
 
   -- Set root directory intelligently
-  use 'airblade/vim-rooter'
+  -- use 'airblade/vim-rooter'
 
   -- Status line
   use {
@@ -153,7 +161,7 @@ packer.startup(function()
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function() 
+    config = function()
       require 'plugins/nvim-tree'
     end
   }
@@ -195,7 +203,7 @@ packer.startup(function()
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { 
+    requires = {
         {'nvim-lua/plenary.nvim'},
         {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     },
@@ -216,5 +224,15 @@ packer.startup(function()
   }
 
   use "sheerun/vim-polyglot"
+ 
+  -- Color schemes
+  use {
+    "dracula/vim",
+    as = "dracula",
+    config = function()
+      vim.cmd "colo dracula"
+    end
+  }
+
 
 end)
