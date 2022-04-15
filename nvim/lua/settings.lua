@@ -78,13 +78,11 @@ vim.cmd
 if index(argv(), ".") >= 0
   autocmd VimEnter * NvimTreeToggle
   bd1
-elseif len(argv()) == 0
-  autocmd VimEnter * Dashboard
 endif
 ]]
 
 
-vim.cmd "colorscheme dracula_bold"
 vim.cmd "hi CursorLine term=underline cterm=underline gui=underline guibg=NONE"
+-- vim.cmd "colo dracula"
 
 opt.autoread = true

@@ -5,7 +5,7 @@ local function remap(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-remap("n", "}", ":bnext <CR>")
-remap("n", "{", ":bprev <CR>")
+remap("n", "L", ":bnext <CR>")
+remap("n", "H", ":bprev <CR>")
 
 return remap

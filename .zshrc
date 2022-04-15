@@ -83,6 +83,7 @@ plugins=(
 	colorize
 	colored-man-pages
   thefuck
+  zsh-nvm
 )
 
 ZSH_TMUX_AUTOSTART=true
@@ -117,7 +118,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 path+=$HOME/.flutter/bin
-path+=$(go env GOPATH)/bin
+# path+=$(go env GOPATH)/bin
 alias :q="exit"
 alias gst="git status"
 alias gcam="git commit -am"
@@ -126,14 +127,14 @@ alias vim="nvim"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# Loads NVM, but quickly
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  nvm_cmds=(nvm node npm yarn)
-  for cmd in $nvm_cmds ; do
-    alias $cmd="unalias $nvm_cmds && unset nvm_cmds && . $NVM_DIR/nvm.sh && $cmd"
-  done
-fi
+# # Loads NVM, but quickly
+# if [ -s "$HOME/.nvm/nvm.sh" ]; then
+#   export NVM_DIR="$HOME/.nvm"
+#   nvm_cmds=(nvm node npm yarn)
+#   for cmd in $nvm_cmds ; do
+#     alias $cmd="unalias $nvm_cmds && unset nvm_cmds && . $NVM_DIR/nvm.sh && $cmd"
+#   done
+# fi
 
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
@@ -158,3 +159,13 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+# export JAVA_OPTS=""
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+
+
