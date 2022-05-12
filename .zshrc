@@ -124,6 +124,8 @@ alias gst="git status"
 alias gcam="git commit -am"
 alias fv="fzf | xargs nvim"
 alias vim="nvim"
+alias ynx="yarn nx --"
+alias cdr='cd $(git rev-parse --show-toplevel)'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
@@ -138,7 +140,9 @@ export EDITOR="$VISUAL"
 
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+export FZF_ALT_C_COMMAND="rg --files --hidden --follow --glob '!.git'"
 bindkey -s '^p' 'vim $(fzf)\n'
+bindkey "ç" fzf-cd-widget
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
