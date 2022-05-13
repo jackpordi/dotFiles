@@ -212,12 +212,12 @@ packer.startup(function()
 
   use 'famiu/bufdelete.nvim'
 
-  use {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("plugins/toggleterm")
-    end
-  }
+  -- use {
+  --   "akinsho/toggleterm.nvim",
+  --   config = function()
+  --     require("plugins/toggleterm")
+  --   end
+  -- }
 
   use "sheerun/vim-polyglot"
  
@@ -229,6 +229,8 @@ packer.startup(function()
       vim.cmd "colo dracula"
     end
   }
+
+  use "pantharshit00/vim-prisma"
 
 
 end)

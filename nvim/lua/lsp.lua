@@ -1,31 +1,41 @@
 local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-  local opts = {}
+local lspconfig = require'lspconfig'
 
+lsp_installer.setup{}
 
-  if server.name == "tsserver" then
-    opts.on_attach = function(client)
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
-    end
-  end
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  if server.name == "eslint" then
-    opts.on_attach = function (client, bufnr)
-      -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-      -- the resolved capabilities of the eslint server ourselves!
-      client.resolved_capabilities.document_formatting = true
-    end
-    opts.settings = {
-      format = { enable = true }, -- this will enable formatting
-    }
-  end
+lspconfig.tsserver.setup {
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end,
+  capabilities = capabilities
+}
 
-  opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  server:setup(opts)
+lspconfig.eslint.setup {
+  on_attach = function (client, bufnr)
+    -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+    -- the resolved capabilities of the eslint server ourselves!
+    client.resolved_capabilities.document_formatting = true
+  end,
+  settings = {
+    format = { enable = true }, -- this will enable formatting
+    capabilities = capabilities,
+  },
+}
 
-  vim.cmd [[ do User LspAttachBuffers ]]
-end)
+lspconfig.prismals.setup {
+  on_attach = function (client, bufnr)
+    client.resolved_capabilities.document_formatting = true
+  end,
+  settings = {
+    format = { enable = true }, -- this will enable formatting
+    capabilities = capabilities,
+  },
+}
+
+vim.cmd [[ do User LspAttachBuffers ]]
 
 local remap = require "remap"
 
