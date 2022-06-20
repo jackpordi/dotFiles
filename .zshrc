@@ -141,7 +141,7 @@ export EDITOR="$VISUAL"
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 export FZF_ALT_C_COMMAND="fd -t d --exclude '.git' ."
-bindkey -s '^p' 'vim $(fzf)\n'
+bindkey -s '^p' 'fv \n'
 bindkey "ç" fzf-cd-widget
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
