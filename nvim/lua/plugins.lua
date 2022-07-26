@@ -173,7 +173,25 @@ packer.startup(function()
     end
   }
 
-  use "tpope/vim-surround"
+  use({
+      "kylechui/nvim-surround",
+      config = function()
+        require("nvim-surround").setup({
+            delimiters = {
+              invalid_key_behavior = function(char)
+                return { char, char }
+              end,
+              pairs = {
+                ["<"] = false,
+              },
+              HTML = {
+                ["<"] = "type",
+              },
+            },
+          })
+      end
+    })
+
   use "tpope/vim-fugitive"
 
   -- Commentary replacement
@@ -212,12 +230,12 @@ packer.startup(function()
 
   use 'famiu/bufdelete.nvim'
 
-  -- use {
-  --   "akinsho/toggleterm.nvim",
-  --   config = function()
-  --     require("plugins/toggleterm")
-  --   end
-  -- }
+  use {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("plugins/toggleterm")
+    end
+  }
 
   use "sheerun/vim-polyglot"
  
@@ -248,7 +266,21 @@ packer.startup(function()
       }
     end
   }
+
   use "pantharshit00/vim-prisma"
+
+  -- use {
+  --   "mfussenegger/nvim-dap",
+  --   config = function()
+  --     require("plugins/dap")
+  --   end
+  -- }
+  --
+  -- use {
+  --   "rcarriga/nvim-dap-ui",
+  --   requires = { "mfussenegger/nvim-dap"}
+  -- }
+
 
 
 end)
