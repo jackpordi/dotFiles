@@ -1,14 +1,11 @@
-local lsp_installer = require("nvim-lsp-installer")
 local lspconfig = require'lspconfig'
-
-lsp_installer.setup{}
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.tsserver.setup {
   on_attach = function(client)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
   end,
   capabilities = capabilities
 }
@@ -16,8 +13,8 @@ lspconfig.tsserver.setup {
 lspconfig.eslint.setup {
   on_attach = function (client, bufnr)
     -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-    -- the resolved capabilities of the eslint server ourselves!
-    client.resolved_capabilities.document_formatting = true
+    -- the server capabilities of the eslint server ourselves!
+    client.server_capabilities.document_formatting = true
   end,
   settings = {
     format = { enable = true }, -- this will enable formatting
@@ -27,7 +24,7 @@ lspconfig.eslint.setup {
 
 lspconfig.prismals.setup {
   on_attach = function (client, bufnr)
-    client.resolved_capabilities.document_formatting = true
+    client.server_capabilities.document_formatting = true
   end,
   settings = {
     format = { enable = true }, -- this will enable formatting
@@ -61,4 +58,4 @@ remap("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<cr>", lsp_opts)
 remap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)
 remap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", lsp_opts)
 remap("n", "<leader>q", ":lua vim.lsp.diagnostic.set_loclist()<CR>", lsp_opts)
-remap("n", "<leader>fr", ":lua vim.lsp.buf.formatting()<CR>", lsp_opts)
+remap("n", "<leader>fr", ":lua vim.lsp.buf.format({ async = true })<CR>", lsp_opts)

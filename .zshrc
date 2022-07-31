@@ -84,6 +84,7 @@ plugins=(
 	colored-man-pages
   thefuck
   zsh-nvm
+  vi-mode
 )
 
 ZSH_TMUX_AUTOSTART=true
@@ -171,5 +172,3 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 # export JAVA_OPTS=""
 # export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
-
-
