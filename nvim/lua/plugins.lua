@@ -21,12 +21,11 @@ packer.startup(function()
   -- LSP enhancer
   -- { "tami5/lspsaga.nvim" }
   use {
-    "tami5/lspsaga.nvim",
+    "glepnir/lspsaga.nvim",
     event = "BufRead",
     config = function()
       require("plugins/lspsaga").config()
     end,
-    -- disable = not config.enabled.lspsaga,
   }
 
   use {
