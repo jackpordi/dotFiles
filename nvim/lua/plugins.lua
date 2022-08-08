@@ -82,7 +82,8 @@ packer.startup(function()
     config = function()
       require("lualine").setup {
         options = {
-          theme = "dracula"
+          theme = "dracula",
+          globalstatus = true,
         },
       }
     end
@@ -165,6 +166,15 @@ packer.startup(function()
   }
 
   use {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup {
+        patterns = { ".git", "src", "project.json" },
+      }
+    end
+  }
+
+  use {
     "akinsho/bufferline.nvim",
     after = "nvim-web-devicons",
     config  = function()
@@ -178,19 +188,7 @@ packer.startup(function()
   use({
       "kylechui/nvim-surround",
       config = function()
-        require("nvim-surround").setup({
-            delimiters = {
-              invalid_key_behavior = function(char)
-                return { char, char }
-              end,
-              pairs = {
-                ["<"] = false,
-              },
-              HTML = {
-                ["<"] = "type",
-              },
-            },
-          })
+        require("nvim-surround").setup()
       end
     })
 
@@ -238,12 +236,11 @@ packer.startup(function()
       require("plugins/toggleterm")
     end
   }
-
-  use "sheerun/vim-polyglot"
  
   -- Color schemes
+  --
   use {
-    "dracula/vim",
+    'Mofiqul/dracula.nvim',
     as = "dracula",
     config = function() 
       vim.cmd "colo dracula"
@@ -271,18 +268,19 @@ packer.startup(function()
 
   use "pantharshit00/vim-prisma"
 
-  -- use {
-  --   "mfussenegger/nvim-dap",
-  --   config = function()
-  --     require("plugins/dap")
-  --   end
-  -- }
-  --
-  -- use {
-  --   "rcarriga/nvim-dap-ui",
-  --   requires = { "mfussenegger/nvim-dap"}
-  -- }
-
-
+  use { 'alexghergh/nvim-tmux-navigation', config = function()
+    require'nvim-tmux-navigation'.setup {
+      disable_when_zoomed = true, -- defaults to false
+      keybindings = {
+        left = "<C-h>",
+        down = "<C-j>",
+        up = "<C-k>",
+        right = "<C-l>",
+        last_active = "<C-\\>",
+        next = "<C-Space>",
+      }
+    }
+  end
+  }
 
 end)

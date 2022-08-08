@@ -53,7 +53,7 @@ remap("n", "gh", "<cmd>Lspsaga lsp_finder<cr>", lsp_opts) -- A bit broken atm
 remap("n", "gs", "<cmd>Lspsaga signature_help<cr>", lsp_opts)
 remap("n", "K", "<cmd>Lspsaga hover_doc<cr>", lsp_opts)
 -- remap("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", lsp_opts)
-remap("n", "gr", ":lua vim.lsp.buf.references()<CR>", lsp_opts)
+remap("n", "gr","<cmd>Lspsaga lsp_finder<CR>", lsp_opts)
 remap("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<cr>", lsp_opts)
 remap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)
 remap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", lsp_opts)

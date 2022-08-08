@@ -1,3 +1,0 @@
-function back
-	prevd
-end

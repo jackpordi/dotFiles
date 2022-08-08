@@ -1,3 +1,0 @@
-function :q
-  exit
-end
