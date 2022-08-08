@@ -4,7 +4,7 @@ local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protoco
 
 lspconfig.tsserver.setup {
   on_attach = function(client)
-    client.server_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.document_range_formatting = false
   end,
   capabilities = capabilities
@@ -14,7 +14,7 @@ lspconfig.eslint.setup {
   on_attach = function (client, bufnr)
     -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
     -- the server capabilities of the eslint server ourselves!
-    client.server_capabilities.document_formatting = true
+    client.server_capabilities.documentFormattingProvider = true
   end,
   settings = {
     format = { enable = true }, -- this will enable formatting
@@ -24,7 +24,7 @@ lspconfig.eslint.setup {
 
 lspconfig.prismals.setup {
   on_attach = function (client, bufnr)
-    client.server_capabilities.document_formatting = true
+    client.server_capabilities.documentFormattingProvider = true
   end,
   settings = {
     format = { enable = true }, -- this will enable formatting
