@@ -32,6 +32,18 @@ lspconfig.prismals.setup {
   },
 }
 
+lspconfig.sumneko_lua.setup{
+  on_attach = function (client, bufnr)
+    client.server_capabilities.documentFormattingProvider = true
+  end,
+  settings = {
+    format = { enable = true }, -- this will enable formatting
+    capabilities = capabilities,
+  }
+}
+
+
+
 vim.cmd [[ do User LspAttachBuffers ]]
 
 local remap = require "remap"

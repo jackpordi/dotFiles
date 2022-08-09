@@ -83,6 +83,9 @@ endif
 
 
 vim.cmd "hi CursorLine term=underline cterm=underline gui=underline guibg=NONE"
--- vim.cmd "colo dracula"
+vim.cmd [[
+  autocmd TermOpen * setlocal nonumber norelativenumber
+  au TermClose * call feedkeys("i")
+]]
 
 opt.autoread = true
