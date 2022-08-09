@@ -1,17 +1,15 @@
 vim.cmd('packadd packer.nvim')
 local packer = require 'packer'
-local util = require'packer.util'
+local util = require 'packer.util'
 
 packer.init({
   package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
 })
 
-local remap = require 'remap'
-
-packer.startup(function()
+packer.startup(function(use)
   -- Self-manage packer
-  use {'wbthomason/packer.nvim'}
- 
+  use { 'wbthomason/packer.nvim' }
+
   -- LSP, LSP installer and tab completion.
   use "neovim/nvim-lspconfig"
   use {
@@ -78,7 +76,7 @@ packer.startup(function()
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require("lualine").setup {
         options = {
@@ -96,9 +94,9 @@ packer.startup(function()
   use {
     'karb94/neoscroll.nvim',
     config = function()
-        require("neoscroll").setup {
-            easing_function = "quadratic"
-        }
+      require("neoscroll").setup {
+        easing_function = "quadratic"
+      }
     end
   }
 
@@ -137,7 +135,7 @@ packer.startup(function()
   use {
     "windwp/nvim-autopairs",
     config = function()
-       require("nvim-autopairs").setup()
+      require("nvim-autopairs").setup()
     end
   }
 
@@ -146,7 +144,7 @@ packer.startup(function()
     "windwp/nvim-ts-autotag",
     after = "nvim-treesitter",
     config = function()
-       require("nvim-ts-autotag").setup()
+      require("nvim-ts-autotag").setup()
     end
   }
 
@@ -177,8 +175,8 @@ packer.startup(function()
 
   use {
     "akinsho/bufferline.nvim",
-    after = "nvim-web-devicons",
-    config  = function()
+    after  = "nvim-web-devicons",
+    config = function()
       require("bufferline").setup {
         show_buffer_icons = true,
         show_buffer_close_icons = true,
@@ -187,11 +185,11 @@ packer.startup(function()
   }
 
   use({
-      "kylechui/nvim-surround",
-      config = function()
-        require("nvim-surround").setup()
-      end
-    })
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup()
+    end
+  })
 
   use "tpope/vim-fugitive"
 
@@ -199,7 +197,7 @@ packer.startup(function()
   use {
     'numToStr/Comment.nvim',
     config = function()
-        require('Comment').setup()
+      require('Comment').setup()
     end
   }
 
@@ -212,18 +210,18 @@ packer.startup(function()
   use {
     "norcalli/nvim-colorizer.lua",
     config = function()
-        require("colorizer").setup()
+      require("colorizer").setup()
     end
   }
 
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-        {'nvim-lua/plenary.nvim'},
-        {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     },
     config = function()
-        require("plugins/telescope")
+      require("plugins/telescope")
     end
   }
 
@@ -237,13 +235,13 @@ packer.startup(function()
       require("plugins/toggleterm")
     end
   }
- 
+
   -- Color schemes
   --
   use {
     'Mofiqul/dracula.nvim',
     as = "dracula",
-    config = function() 
+    config = function()
       vim.cmd "colo dracula"
     end
   }
@@ -271,7 +269,7 @@ packer.startup(function()
 
   use { 'alexghergh/nvim-tmux-navigation',
     config = function()
-      require'nvim-tmux-navigation'.setup {
+      require 'nvim-tmux-navigation'.setup {
         disable_when_zoomed = true, -- defaults to false
         keybindings = {
           left = "<C-h>",
