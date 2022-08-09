@@ -42,6 +42,16 @@ lspconfig.sumneko_lua.setup{
   }
 }
 
+lspconfig.rust_analyzer.setup {
+  on_attach = function (client)
+    client.server_capabilities.documentFormattingProvider = true
+  end,
+  settings = {
+    format = { enable = true }, -- this will enable formatting
+    capabilities = capabilities,
+  }
+}
+
 
 
 vim.cmd [[ do User LspAttachBuffers ]]

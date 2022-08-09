@@ -51,6 +51,10 @@ packer.startup(function(use)
     after = "nvim-cmp",
     config = function()
       require("luasnip/loaders/from_vscode").lazy_load()
+      vim.cmd [[ 
+        inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(1)<Cr>
+        inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
+      ]]
     end
   }
 
