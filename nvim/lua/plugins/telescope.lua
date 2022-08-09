@@ -2,8 +2,8 @@ require("telescope").load_extension 'fzf'
 local remap = require("../remap")
 
 remap("n", "<Leader>b", ":Telescope buffers<CR>")
-remap("n", "<C-p>", ":Telescope find_files find_command=rg,--follow,--hidden,--files<CR>")
---remap("n", "<leader>do", ":lua require('telescope.builtin').lsp_code_actions()<CR>")
+remap("n", "<C-p>", ":Telescope find_files find_command=rg,--follow,--files<CR>")
+
 remap("n", "<Leader>fw", ":Telescope live_grep<CR>")
 remap("n", "<Leader>gt", ":Telescope git_status<CR>")
 remap("n", "<Leader>cm", ":Telescope git_commits<CR>")

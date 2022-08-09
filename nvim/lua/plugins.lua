@@ -105,9 +105,10 @@ packer.startup(function()
   use {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-        require("indent_blankline").setup {
-            buftype_exclude = { "terminal" }
-        }
+      require("indent_blankline").setup {
+        buftype_exclude = { "terminal" },
+        filetype_exclude = { "dashboard" },
+      }
     end
   }
 
@@ -268,19 +269,28 @@ packer.startup(function()
 
   use "pantharshit00/vim-prisma"
 
-  use { 'alexghergh/nvim-tmux-navigation', config = function()
-    require'nvim-tmux-navigation'.setup {
-      disable_when_zoomed = true, -- defaults to false
-      keybindings = {
-        left = "<C-h>",
-        down = "<C-j>",
-        up = "<C-k>",
-        right = "<C-l>",
-        last_active = "<C-\\>",
-        next = "<C-Space>",
+  use { 'alexghergh/nvim-tmux-navigation',
+    config = function()
+      require'nvim-tmux-navigation'.setup {
+        disable_when_zoomed = true, -- defaults to false
+        keybindings = {
+          left = "<C-h>",
+          down = "<C-j>",
+          up = "<C-k>",
+          right = "<C-l>",
+          -- last_active = "<C-\\>",
+          next = "<C-Space>",
+        }
       }
-    }
-  end
+    end
   }
+
+  -- TODO: Configure properly later
+  -- use {
+  --   'glepnir/dashboard-nvim',
+  --   config = function()
+  --     require("plugins/dashboard")
+  --   end
+  -- }
 
 end)
