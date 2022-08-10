@@ -295,4 +295,6 @@ packer.startup(function(use)
   --   end
   -- }
 
+  use "jxnblk/vim-mdx-js"
+
 end)
