@@ -1,4 +1,4 @@
-local nvim_treesitter = require "nvim-treesitter.configs" 
+local nvim_treesitter = require "nvim-treesitter.configs"
 
 nvim_treesitter.setup {
   ensure_installed = "all",
@@ -22,9 +22,8 @@ nvim_treesitter.setup {
 }
 
 
-vim.cmd
-[[
-autocmd BufEnter * set foldmethod=expr
-autocmd BufEnter * set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=99
+vim.cmd [[
+  autocmd BufEnter * set foldmethod=expr
+  autocmd BufEnter * set foldexpr=nvim_treesitter#foldexpr()
+  set foldlevel=99
 ]]
