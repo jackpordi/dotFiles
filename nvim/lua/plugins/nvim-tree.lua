@@ -1,4 +1,6 @@
-require("nvim-tree").setup {
+local ntree = require("nvim-tree")
+
+ntree.setup {
   view = {
     side = "right"
   },
@@ -6,4 +8,4 @@ require("nvim-tree").setup {
 }
 local remap = require("../remap")
 
-remap("n", "<Leader>nt", ":NvimTreeToggle <CR>")
+remap.lua("n", "<Leader>nt", function() ntree.toggle(false, false) end)
