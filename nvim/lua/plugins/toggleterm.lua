@@ -47,6 +47,7 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 local Terminal  = require('toggleterm.terminal').Terminal
+
 local lazygit = Terminal:new({
   cmd = "lazygit",
   hidden = true,
@@ -54,13 +55,27 @@ local lazygit = Terminal:new({
   persist_mode = true,
 })
 
-lazygit:spawn()
+local htop = Terminal:new({
+  cmd = "htop",
+  hidden = true,
+  direction = "float",
+  persist_mode = true,
+})
 
 function _lazygit_toggle()
   lazygit:toggle()
 end
 
+function _htop_toggle()
+  htop:toggle()
+end
+
 vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>lua _lazygit_toggle()<CR>", {
+  noremap = true,
+  silent = true,
+})
+
+vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<CR>", {
   noremap = true,
   silent = true,
 })
