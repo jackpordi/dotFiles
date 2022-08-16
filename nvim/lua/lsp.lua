@@ -7,7 +7,8 @@ lspconfig.tsserver.setup {
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.document_range_formatting = false
   end,
-  capabilities = capabilities
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern(".git")
 }
 
 lspconfig.eslint.setup {

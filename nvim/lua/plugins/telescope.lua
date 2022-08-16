@@ -4,6 +4,7 @@ telescope.load_extension 'fzf'
 local remap = require("../remap")
 
 telescope.setup { defaults = { file_ignore_patterns = { "node_modules" } } }
+telescope.load_extension('projects')
 
 local builtins = require('telescope.builtin');
 

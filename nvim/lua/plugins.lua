@@ -152,7 +152,16 @@ packer.startup(function(use)
     end
   }
 
-  use 'AndrewRadev/splitjoin.vim'
+  -- use 'AndrewRadev/splitjoin.vim'
+  use {
+    'AckslD/nvim-trevJ.lua',
+    config = function()
+      vim.keymap.set('n', 'gj', 'J')
+      vim.keymap.set('n', 'gs', function()
+        require('trevJ').format_at_cursor()
+      end)
+    end,
+  }
 
   -- Icons.
   use {
@@ -172,7 +181,7 @@ packer.startup(function(use)
     "ahmedkhalf/project.nvim",
     config = function()
       require("project_nvim").setup {
-        patterns = { ".git", "src", "project.json" },
+        patterns = { ".git", "package.json" },
       }
     end
   }
