@@ -6,7 +6,7 @@ require("toggleterm").setup {
       return vim.o.columns * 0.4
     end
   end,
-  open_mapping = [[<c-\>]],
+  open_mapping = [[<C-|>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = true,
   shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
@@ -79,3 +79,15 @@ vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<CR>", {
   noremap = true,
   silent = true,
 })
+
+vim.cmd [[
+  autocmd TermOpen * startinsert
+  autocmd BufLeave term://* stopinsert
+]]
+
+vim.api.nvim_create_user_command('Vterm',function()
+  vim.cmd [[
+    vsplit
+    term
+  ]]
+end,{})
