@@ -81,13 +81,20 @@ vim.api.nvim_set_keymap("n", "<leader>ht", "<cmd>lua _htop_toggle()<CR>", {
 })
 
 vim.cmd [[
-  autocmd TermOpen * startinsert
+  autocmd BufEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
 ]]
 
 vim.api.nvim_create_user_command('Vterm',function()
   vim.cmd [[
     vsplit
+    term
+  ]]
+end,{})
+
+vim.api.nvim_create_user_command('Sterm',function()
+  vim.cmd [[
+    split
     term
   ]]
 end,{})
