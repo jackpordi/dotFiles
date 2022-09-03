@@ -94,3 +94,5 @@ vim.cmd [[
   autocmd BufNewFile,BufRead *.mdx set spellsuggest=best,9
   autocmd BufNewFile,BufRead *.mdx set spell
 ]]
+
+vim.api.nvim_set_var("rust_recommended_style", false)

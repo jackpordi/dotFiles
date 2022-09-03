@@ -11,7 +11,7 @@ local builtins = require('telescope.builtin');
 remap.lua("n", "<Leader>b", builtins.buffers)
 
 local find_files = function()
-  builtins.find_files({ find_command = {"rg", "--follow", "--files"} })
+  builtins.find_files({ find_command = {"rg", "--follow", "--files", "--hidden"} })
 end
 remap.lua("n", "<C-p>", find_files)
 

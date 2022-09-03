@@ -126,6 +126,7 @@ alias gcam="git commit -am"
 alias fv="fzf | xargs nvim"
 alias vim="nvim"
 alias ynx="yarn nx"
+alias pnx="pnpx nx"
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias lzg='lazygit'
 export VISUAL=nvim
