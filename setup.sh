@@ -5,7 +5,7 @@ ln -s $HOME/dotFiles/.tmux.conf $HOME/.tmux.conf
 
 # Neovim
 # mkdir -p ~/.config/nvim
-ln -s $HOME/dotFiles/nvim $HOME/.config/nvim
+ln -s $HOME/dotFiles/nvim $HOME/.config/
 
 # IdeaVim
 # ln -s $HOME/dotFiles/.ideavimrc $HOME/.ideavimrc

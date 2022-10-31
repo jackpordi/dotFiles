@@ -191,8 +191,10 @@ packer.startup(function(use)
     after  = "nvim-web-devicons",
     config = function()
       require("bufferline").setup {
-        show_buffer_icons = true,
-        show_buffer_close_icons = true,
+        options = {
+          show_buffer_icons = true,
+          show_buffer_close_icons = true,
+        }
       }
     end
   }
