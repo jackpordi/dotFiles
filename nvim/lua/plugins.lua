@@ -252,11 +252,12 @@ packer.startup(function(use)
   }
 
   -- Color schemes
-  --
   use {
     'Mofiqul/dracula.nvim',
     as = "dracula",
     config = function()
+      local dracula = require("dracula")
+      dracula.setup()
       vim.cmd "colo dracula"
     end
   }
