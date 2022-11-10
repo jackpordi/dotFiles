@@ -314,4 +314,12 @@ packer.startup(function(use)
 
   use "jxnblk/vim-mdx-js"
 
+  use {
+    'echasnovski/mini.ai',
+    branch = 'stable',
+    config = function()
+      require "mini.ai".setup()
+    end
+  }
+
 end)
