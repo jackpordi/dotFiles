@@ -20,7 +20,7 @@ local remap = {
   lua = lua,
 }
 
-remap.vim("n", "L", ":bnext <CR>")
-remap.vim("n", "H", ":bprev <CR>")
+remap.vim("n", "L", ":bnext<CR>")
+remap.vim("n", "H", ":bprev<CR>")
 
 return remap
