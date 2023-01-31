@@ -129,6 +129,7 @@ alias ynx="yarn nx"
 alias pnx="pnpx nx"
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias lzg='lazygit'
+alias k='kubectl'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
@@ -174,3 +175,4 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 # export JAVA_OPTS=""
 # export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+export PATH=$PATH:/opt/homebrew/bin

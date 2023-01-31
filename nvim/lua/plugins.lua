@@ -38,7 +38,11 @@ packer.startup(function(use)
     "hrsh7th/nvim-cmp",
     after = "friendly-snippets",
     requires = {
-      "hrsh7th/cmp-nvim-lsp"
+      "hrsh7th/cmp-nvim-lsp",
+      {
+        'saadparwaiz1/cmp_luasnip',
+        opt = true
+      }
     },
     config = function()
       require("plugins/cmp")
@@ -49,8 +53,10 @@ packer.startup(function(use)
     "L3MON4D3/LuaSnip",
     wants = "friendly-snippets",
     after = "nvim-cmp",
+    requires = {{"rafamadriz/friendly-snippets"}},
     config = function()
       require("luasnip/loaders/from_vscode").lazy_load()
+      require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/packer/opt/friendly-snippets" } })
       vim.cmd [[ 
         inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(1)<Cr>
         inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
