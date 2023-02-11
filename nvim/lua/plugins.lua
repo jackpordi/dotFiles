@@ -53,7 +53,7 @@ packer.startup(function(use)
     "L3MON4D3/LuaSnip",
     wants = "friendly-snippets",
     after = "nvim-cmp",
-    requires = {{"rafamadriz/friendly-snippets"}},
+    requires = { { "rafamadriz/friendly-snippets" } },
     config = function()
       require("luasnip/loaders/from_vscode").lazy_load()
       require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/packer/opt/friendly-snippets" } })
@@ -325,6 +325,48 @@ packer.startup(function(use)
     branch = 'stable',
     config = function()
       require "mini.ai".setup()
+    end
+  }
+
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      'haydenmeade/neotest-jest',
+    },
+    config = function()
+      require('neotest').setup({
+        adapters = {
+          require('neotest-jest')({
+            jestCommand = "yarn test --",
+            jestConfigFile = "jest.config.ts",
+            env = { CI = true },
+            cwd = function(path)
+              return vim.fn.getcwd()
+            end,
+          }),
+        }
+      })
+    end
+  }
+
+  use {
+    "danymat/neogen",
+    config = function()
+      require('neogen').setup {}
+      local opts = { noremap = true, silent = true }
+      vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    tag = "*"
+  }
+
+  use {
+    "stevearc/aerial.nvim",
+    config = function ()
+      require("plugins.aerial")
     end
   }
 

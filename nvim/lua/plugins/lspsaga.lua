@@ -8,7 +8,7 @@ function M.config()
     return
   end
 
-  lspsaga.init_lsp_saga()
+  lspsaga.setup()
   -- lspsaga.init_lsp_saga { -- defaults ...
   --   debug = false,
   --   use_saga_diagnostic_sign = true,
