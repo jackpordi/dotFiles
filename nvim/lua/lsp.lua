@@ -33,7 +33,7 @@ lspconfig.prismals.setup {
   },
 }
 
-lspconfig.sumneko_lua.setup{
+lspconfig.lua_ls.setup{
   on_attach = function (client, bufnr)
     client.server_capabilities.documentFormattingProvider = true
   end,

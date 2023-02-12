@@ -97,7 +97,6 @@ packer.startup(function(use)
     end
   }
 
-  -- Lightspeed - similar to vim-sneak
   use {
     'ggandor/leap.nvim',
     config = function()
