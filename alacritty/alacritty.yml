@@ -1,0 +1,11 @@
+import:
+  - ~/.config/alacritty/dracula.yml
+
+font:
+  normal:
+    family: Cousine Nerd Font Mono
+    # style: Regular
+  size: 14
+
+env:
+  TERM: xterm-256color
