@@ -25,7 +25,7 @@ require('aerial').setup({
     ["<CR>"] = "actions.jump",
     ["<2-LeftMouse>"] = "actions.jump",
     ["<C-v>"] = "actions.jump_vsplit",
-    ["<C-s>"] = "actions.jump_split",
+    ["<C-x>"] = "actions.jump_split",
     ["p"] = "actions.scroll",
     ["<C-j>"] = "actions.down_and_scroll",
     ["<C-k>"] = "actions.up_and_scroll",
