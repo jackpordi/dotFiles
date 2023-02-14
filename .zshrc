@@ -68,6 +68,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 eval $(thefuck --alias)
+eval "$(fnm env --use-on-cd)"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -83,7 +84,6 @@ plugins=(
 	colorize
 	colored-man-pages
   thefuck
-  zsh-nvm
   vi-mode
 )
 
@@ -133,14 +133,6 @@ alias k='kubectl'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# # Loads NVM, but quickly
-# if [ -s "$HOME/.nvm/nvm.sh" ]; then
-#   export NVM_DIR="$HOME/.nvm"
-#   nvm_cmds=(nvm node npm yarn)
-#   for cmd in $nvm_cmds ; do
-#     alias $cmd="unalias $nvm_cmds && unset nvm_cmds && . $NVM_DIR/nvm.sh && $cmd"
-#   done
-# fi
 
 export FZF_DEFAULT_OPTS='--bind tab:down,shift-tab:up'
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
@@ -176,3 +168,5 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 # export JAVA_OPTS=""
 # export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
 export PATH=$PATH:/opt/homebrew/bin
+
+export PATH=/home/$USER/.fnm:$PATH

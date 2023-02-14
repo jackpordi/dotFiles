@@ -86,7 +86,7 @@ packer.startup(function(use)
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
     config = function()
       require("lualine").setup {
         options = {
@@ -175,13 +175,12 @@ packer.startup(function(use)
 
   -- Icons.
   use {
-    "kyazdani42/nvim-web-devicons",
-    event = "BufEnter"
+    "nvim-tree/nvim-web-devicons",
   }
 
   use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-tree.lua',
+    requires = 'nvim-tree/nvim-web-devicons',
     config = function()
       require 'plugins/nvim-tree'
     end
@@ -281,7 +280,7 @@ packer.startup(function(use)
 
   use {
     "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
+    requires = "nvim-tree/nvim-web-devicons",
     config = function()
       require("trouble").setup {
         -- your configuration comes here
@@ -373,11 +372,29 @@ packer.startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
     },
     config = function ()
       require"octo".setup()
     end
   }
+
+  use({
+    "ghillb/cybu.nvim",
+    branch = "main", -- timely updates
+    -- branch = "v1.x", -- won't receive breaking changes
+    requires = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim"}, -- optional for icon support
+    config = function()
+      local ok, cybu = pcall(require, "cybu")
+      if not ok then
+        return
+      end
+      cybu.setup()
+      vim.keymap.set("n", "H", "<Plug>(CybuPrev)")
+      vim.keymap.set("n", "L", "<Plug>(CybuNext)")
+      vim.keymap.set({"n", "v"}, "<c-s-tab>", "<plug>(CybuLastusedPrev)")
+      vim.keymap.set({"n", "v"}, "<c-tab>", "<plug>(CybuLastusedNext)")
+    end,
+  })
 
 end)
