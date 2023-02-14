@@ -17,6 +17,16 @@ function M.config()
       respect_root = false,
       color_mode = true,
     },
+    code_action = {
+      num_shortcut = true,
+      show_server_name = false,
+      extend_gitsigns = false,
+      keys = {
+        -- string | table type
+        quit = "q",
+        exec = "<CR>",
+      },
+    },
   })
 end
 
