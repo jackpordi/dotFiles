@@ -72,7 +72,6 @@ end,
 remap.lua("n", "<leader>D", vim.lsp.buf.type_definition, lsp_opts)
 remap.vim("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", lsp_opts)
 remap.vim("n", "<leader>do", "<cmd>Lspsaga code_action<cr>", lsp_opts)
-remap.vim("n", "gs", "<cmd>Lspsaga signature_help<cr>", lsp_opts)
 remap.vim("n", "K", "<cmd>Lspsaga hover_doc<cr>", lsp_opts)
 remap.vim("n", "gr","<cmd>Lspsaga lsp_finder<CR>", lsp_opts)
 remap.vim("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<cr>", lsp_opts)

@@ -163,15 +163,17 @@ packer.startup(function(use)
   }
 
   -- use 'AndrewRadev/splitjoin.vim'
-  use {
-    'AckslD/nvim-trevJ.lua',
+  use({
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter' },
     config = function()
-      vim.keymap.set('n', 'gj', 'J')
-      vim.keymap.set('n', 'gs', function()
-        require('trevJ').format_at_cursor()
-      end)
+      require('treesj').setup({
+        use_default_keymaps = false,
+      })
+      vim.keymap.set("n", "gJ", ":TSJJoin<CR>")
+      vim.keymap.set("n", "gS", ":TSJSplit<CR>")
     end,
-  }
+  })
 
   -- Icons.
   use {
@@ -389,11 +391,16 @@ packer.startup(function(use)
       if not ok then
         return
       end
-      cybu.setup()
+      cybu.setup({
+        position = {
+          max_win_height = 24,
+        },
+        display_time = 1000,
+      })
       vim.keymap.set("n", "H", "<Plug>(CybuPrev)")
       vim.keymap.set("n", "L", "<Plug>(CybuNext)")
-      vim.keymap.set({"n", "v"}, "<c-s-tab>", "<plug>(CybuLastusedPrev)")
-      vim.keymap.set({"n", "v"}, "<c-tab>", "<plug>(CybuLastusedNext)")
+      -- vim.keymap.set({"n", "v"}, "<c-s-tab>", "<plug>(CybuLastusedPrev)")
+      -- vim.keymap.set({"n", "v"}, "<c-tab>", "<plug>(CybuLastusedNext)")
     end,
   })
 
