@@ -3,9 +3,6 @@ local nvim_treesitter = require "nvim-treesitter.configs"
 nvim_treesitter.setup {
   ensure_installed = "all",
   ignore_install = { "phpdoc" },
-  context_commentstring = {
-    enable = true,
-  },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true,

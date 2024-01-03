@@ -5,7 +5,7 @@ ntree.setup {
     side = "right",
     width = 60,
   },
-  remove_keymaps = { "s" },
+  -- remove_keymaps = { "s" },
 }
 local remap = require("../remap")
 
