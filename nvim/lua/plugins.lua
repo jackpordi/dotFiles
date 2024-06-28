@@ -47,10 +47,10 @@ require("lazy").setup({
 
   {
     "hrsh7th/nvim-cmp",
-    after = "friendly-snippets",
-    dependewncies = {
+    dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       'saadparwaiz1/cmp_luasnip',
+      "friendly-snippets",
     },
     config = function()
       require("plugins/cmp")
@@ -59,9 +59,10 @@ require("lazy").setup({
 
   {
     "L3MON4D3/LuaSnip",
-    wants = "friendly-snippets",
-    after = "nvim-cmp",
-    requires = { { "rafamadriz/friendly-snippets" } },
+    dependencies = {
+      "nvim-cmp",
+      "friendly-snippets"
+    },
     config = function()
       require("luasnip/loaders/from_vscode").lazy_load()
       require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/packer/opt/friendly-snippets" } })
@@ -293,30 +294,29 @@ require("lazy").setup({
     end
   },
 
-  {
-    "nvim-neotest/neotest",
-    enables = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      'haydenmeade/neotest-jest',
-    },
-    config = function()
-      require('neotest').setup({
-        adapters = {
-          require('neotest-jest')({
-            jestCommand = "yarn test --",
-            jestConfigFile = "jest.config.ts",
-            env = { CI = true },
-            cwd = function(path)
-              return vim.fn.getcwd()
-            end,
-          }),
-        }
-      })
-    end
-  },
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "antoinemadec/FixCursorHold.nvim",
+  --     'haydenmeade/neotest-jest',
+  --   },
+  --   config = function()
+  --     require('neotest').setup({
+  --       adapters = {
+  --         require('neotest-jest')({
+  --           jestCommand = "yarn test --",
+  --           jestConfigFile = "jest.config.ts",
+  --           env = { CI = true },
+  --           cwd = function(path)
+  --             return vim.fn.getcwd()
+  --           end,
+  --         }),
+  --       }
+  --     })
+  --   end
+  -- },
 
   {
     "danymat/neogen",
@@ -335,16 +335,16 @@ require("lazy").setup({
     end
   },
 
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function ()
-      require"octo".setup()
-    end
-  },
+  -- {
+  --   'pwntester/octo.nvim',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim',
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function ()
+  --     require"octo".setup()
+  --   end
+  -- },
 
 })
