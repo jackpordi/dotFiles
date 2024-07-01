@@ -170,3 +170,6 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:/opt/homebrew/bin
 
 export PATH=/home/$USER/.fnm:$PATH
+
+# Created by `pipx` on 2024-06-21 08:50:03
+export PATH="$PATH:/Users/jackpordi/.local/bin"
