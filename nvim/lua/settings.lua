@@ -96,3 +96,5 @@ vim.cmd [[
 ]]
 
 vim.api.nvim_set_var("rust_recommended_style", false)
+
+vim.opt.termguicolors = true
