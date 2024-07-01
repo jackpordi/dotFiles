@@ -61,7 +61,6 @@ local remap = require "remap"
 
 -- Lsp
 local lsp_opts = { noremap=true, silent=true }
-remap.lua("n", "L", vim.lsp.buf.hover, lsp_opts)
 remap.lua("n", "<C-k>", vim.lsp.buf.signature_help, lsp_opts)
 remap.lua("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, lsp_opts)
 remap.lua("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, lsp_opts)
@@ -73,7 +72,7 @@ remap.lua("n", "<leader>D", vim.lsp.buf.type_definition, lsp_opts)
 remap.vim("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", lsp_opts)
 remap.vim("n", "<leader>do", "<cmd>Lspsaga code_action<cr>", lsp_opts)
 remap.vim("n", "K", "<cmd>Lspsaga hover_doc<cr>", lsp_opts)
-remap.vim("n", "gr","<cmd>Lspsaga lsp_finder<CR>", lsp_opts)
+remap.vim("n", "gr","<cmd>Lspsaga finder<CR>", lsp_opts)
 remap.vim("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<cr>", lsp_opts)
 remap.lua("n", "[d", vim.diagnostic.goto_prev, lsp_opts)
 remap.lua("n", "]d", vim.diagnostic.goto_next, lsp_opts)
