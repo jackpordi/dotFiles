@@ -2,7 +2,7 @@ local lspconfig = require'lspconfig'
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = function(client)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.document_range_formatting = false
@@ -53,6 +53,20 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
+lspconfig.pyright.setup{}
+
+lspconfig.ruff.setup({
+  init_options = {
+    settings = {
+      organizeImports = true,
+      codeAction = {
+        disableRuleComment = {
+          enable = false
+        }
+      }
+    }
+  }
+})
 
 
 vim.cmd [[ do User LspAttachBuffers ]]

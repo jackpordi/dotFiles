@@ -68,7 +68,6 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 eval $(thefuck --alias)
-eval "$(fnm env --use-on-cd)"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -85,6 +84,8 @@ plugins=(
 	colored-man-pages
   thefuck
   vi-mode
+  pyautoenv
+  fzf
 )
 
 ZSH_TMUX_AUTOSTART=true
@@ -169,7 +170,27 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 # export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
 export PATH=$PATH:/opt/homebrew/bin
 
-export PATH=/home/$USER/.fnm:$PATH
+# New config starts here
+export PATH="/Users/jackpordi/.rd/bin:$PATH"
 
-# Created by `pipx` on 2024-06-21 08:50:03
-export PATH="$PATH:/Users/jackpordi/.local/bin"
+FNM_PATH="/Users/$USER/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/$USER/.local/share/fnm:$PATH"
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive)"
+fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="/Users/jackpordi/.local/bin:$PATH"
+
+# add Pulumi to the PATH
+export PATH=$PATH:/Users/jackpordi/.pulumi/bin
+
+# export AWS_DEFAULT_PROFILE=login
+export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/jackpordi/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
